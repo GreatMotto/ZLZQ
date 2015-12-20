@@ -1,0 +1,50 @@
+[
+    {
+        "outputFile": "D:\\ZLZQ\\Wheel_main\\build\\intermediates\\res\\merged\\release\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 60,
+                    "endOffset": 111
+                },
+                "from": {
+                    "file": "D:\\ZLZQ\\Wheel_main\\res\\values\\wheel__attrs.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 4,
+                        "startOffset": 932,
+                        "endColumn": 61,
+                        "endOffset": 989
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "F:\\ZLZQ\\Wheel_main\\build\\intermediates\\res\\merged\\release\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 60,
+                    "endOffset": 111
+                },
+                "from": {
+                    "file": "F:\\ZLZQ\\Wheel_main\\res\\values\\wheel__attrs.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 4,
+                        "startOffset": 932,
+                        "endColumn": 61,
+                        "endOffset": 989
+                    }
+                }
+            }
+        ]
+    }
+]

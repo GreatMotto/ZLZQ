@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/qp_titlebar" />
+
+    <RadioGroup
+        android:id="@+id/radiogroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/app_theme"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_mai"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/six_margin"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="销售商品"
+            android:textColor="@drawable/qp_listbar_color"
+            android:textSize="@dimen/big_text_size"/>
+
+        <RadioButton
+            android:id="@+id/rb_zu"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/six_margin"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="租赁商品"
+            android:textColor="@drawable/qp_listbar_color"
+            android:textSize="@dimen/big_text_size"/>
+
+    </RadioGroup>
+    
+    <ListView
+        android:id="@+id/lv_qupin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="#00000000"
+        android:divider="@null"
+        android:fadingEdge="none"
+        android:listSelector="#00000000"
+        android:scrollbars="none" />
+
+</LinearLayout>

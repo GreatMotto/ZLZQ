@@ -1,0 +1,65 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+    <style name="MyDialogStyle">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="dlganim" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/in_from_bottom</item>
+        <item name="@android:windowExitAnimation">@anim/out_to_bottom</item>
+    </style>
+
+    <style name="dlganimright" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/in_from_right</item>
+        <item name="@android:windowExitAnimation">@anim/out_to_right</item>
+    </style>
+
+    <style name="shaixuanButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/dlg_checkbox_bg</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">@dimen/margin</item>
+        <item name="android:layout_marginBottom">@dimen/margin</item>
+        <item name="android:textColor">@drawable/dlg_checkbox_text_color</item>
+        <item name="android:textSize">@dimen/small_text_size</item>
+    </style>
+
+    <style name="myWuliu">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:drawablePadding">@dimen/margin</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/app_black</item>
+        <item name="android:textSize">@dimen/small_text_size</item>
+    </style>
+
+    <style name="myMokuai">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:drawablePadding">12dp</item>
+        <item name="android:paddingTop">@dimen/double_margin</item>
+        <item name="android:paddingBottom">@dimen/double_margin</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/hm_bottom_text</item>
+        <item name="android:textSize">@dimen/small_text_size</item>
+    </style>
+
+
+</resources>

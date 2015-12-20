@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@mipmap/qp_item_bg"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="68dp"
+            android:layout_height="68dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@mipmap/qp_pic" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="山东蜜糖冬枣3斤 超甜冬枣 抢先水果新鲜"
+                android:textColor="@color/app_black"
+                android:textSize="@dimen/normal_text_size" />
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="¥38.00"
+                android:textColor="@color/app_theme"
+                android:textSize="@dimen/big_text_size" />
+            <TextView
+                android:id="@+id/tv_price_old"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/tv_price"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/half_margin"
+                android:layout_marginBottom="2dp"
+                android:text="¥38.00"
+                android:textColor="@color/qp_item_price_old"
+                android:textSize="@dimen/small_text_size" />
+            <TextView
+                android:id="@+id/tv_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/tv_price"
+                android:layout_alignParentBottom="true"
+                android:text="/月"
+                android:textColor="@color/app_theme"
+                android:textSize="@dimen/big_text_size"
+                android:visibility="gone"/>
+            <TextView
+                android:id="@+id/tv_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:text="23人购买"
+                android:textColor="@color/qp_item_num"
+                android:textSize="@dimen/normal_text_size" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@mipmap/qp_item_bg"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="68dp"
+            android:layout_height="68dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@mipmap/qp_pic" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="宝隆便利店"
+                android:textColor="@color/app_black"
+                android:textSize="@dimen/big_text_size" />
+            <TextView
+                android:id="@+id/tv_have_goods"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/tv_name"
+                android:layout_marginLeft="@dimen/margin"
+                android:padding="2dp"
+                android:gravity="center"
+                android:text="有货"
+                android:textColor="@color/white"
+                android:textSize="@dimen/smaller_text_size"
+                android:background="@mipmap/mc_have_goods"/>
+
+            <TextView
+                android:id="@+id/tv_no_goods"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/tv_name"
+                android:layout_marginLeft="@dimen/margin"
+                android:padding="2dp"
+                android:gravity="center"
+                android:text="暂无"
+                android:textColor="@color/qp_item_num"
+                android:textSize="@dimen/smaller_text_size"
+                android:background="@mipmap/mc_no_goods"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/tv_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="23km"
+                android:textColor="@color/qp_item_num"
+                android:textSize="@dimen/small_text_size"/>
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="地址:徐州市中山南路169号"
+                android:textColor="@color/app_black"
+                android:textSize="@dimen/normal_text_size" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Animationmain/Animationmain.iml" filepath="$PROJECT_DIR$/Animationmain/Animationmain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Wheel_main/Wheel_main.iml" filepath="$PROJECT_DIR$/Wheel_main/Wheel_main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ZLZQ.iml" filepath="$PROJECT_DIR$/ZLZQ.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gestureimageview/gestureimageview.iml" filepath="$PROJECT_DIR$/gestureimageview/gestureimageview.iml" />
+    </modules>
+  </component>
+</project>

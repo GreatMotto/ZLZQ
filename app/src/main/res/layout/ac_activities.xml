@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/titlebar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/hd_pic" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/double_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="【满减】"
+                    android:textColor="@color/app_theme"
+                    android:textSize="@dimen/big_text_size" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="南非水蜜桃6只"
+                    android:textColor="@color/app_black"
+                    android:textSize="@dimen/big_text_size" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin"
+                android:layout_marginLeft="@dimen/margin"
+                android:text="水蜜桃属于球形可食用水果类，水蜜桃有美肤、清胃、润肺、祛痰等功能。它的蛋白质的含量比苹果、葡萄高一倍，比梨子多七倍；铁的含量比苹果多三倍，比梨子多五倍，富含多种维生素，其中维生素C最高。水蜜桃属于球形可食用水果类，水蜜桃有美肤、清胃、润肺、祛痰等功能。它的蛋白质的含量比苹果、葡萄高一倍，比梨子多七倍；铁的含量比苹果多三倍，比梨子多五倍，富含多种维生素，其中维生素C最高。"
+                android:textColor="@color/app_black"
+                android:textSize="@dimen/normal_text_size" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

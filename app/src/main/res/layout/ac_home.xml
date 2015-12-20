@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/app_bg"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/fl_home"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@mipmap/hm_line" />
+
+    <RadioGroup
+        android:id="@+id/rg_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/hm_bottom_bar"
+        android:orientation="horizontal"
+        android:padding="@dimen/half_margin">
+
+        <RadioButton
+            android:id="@+id/rb_home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/hm_bottom_home"
+            android:gravity="center"
+            android:text="菜单"
+            android:textColor="@drawable/hm_bottom_text_color"
+            android:textSize="@dimen/small_text_size" />
+
+        <RadioButton
+            android:id="@+id/rb_qupin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/hm_bottom_qupin"
+            android:gravity="center"
+            android:text="趣品"
+            android:textColor="@drawable/hm_bottom_text_color"
+            android:textSize="@dimen/small_text_size" />
+
+        <RadioButton
+            android:id="@+id/rb_shopcar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/hm_bottom_shopcar"
+            android:gravity="center"
+            android:text="购物车"
+            android:textColor="@drawable/hm_bottom_text_color"
+            android:textSize="@dimen/small_text_size" />
+
+        <RadioButton
+            android:id="@+id/rb_my"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/hm_bottom_my"
+            android:gravity="center"
+            android:text="我的"
+            android:textColor="@drawable/hm_bottom_text_color"
+            android:textSize="@dimen/small_text_size" />
+
+    </RadioGroup>
+</LinearLayout>

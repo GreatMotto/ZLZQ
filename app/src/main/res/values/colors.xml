@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#ffffffff</color>
+    <color name="white_no_select">#f9d6b8</color>
+    <color name="app_black">#333333</color>
+    <color name="app_theme">#f18d00</color>
+    <color name="app_bg">#f2f2f2</color>
+    <color name="dl_text_hint_color">#cfcfcf</color>
+    <color name="hm_line_gray">#dddddd</color>
+    <color name="hm_bottom_text">#939393</color>
+    <color name="qp_item_num">#888888</color>
+    <color name="qp_item_price_old">#aaaaaa</color>
+    <color name="dlg_title">#f8f8f9</color>
+    <color name="alpha_00">#00000000</color>
+    <color name="coupon_bg">#fde0b7</color>
+    <color name="my_bg">#f9f9f9</color>
+    <color name="my_order_finish">#61d533</color>
+</resources>

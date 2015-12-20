@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">租来租趣</string>
+    <string name="more_tip">没有更多了</string>
+    <string name="load_tip">正在加载</string>
+</resources>
