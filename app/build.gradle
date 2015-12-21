@@ -29,5 +29,4 @@ dependencies {
     compile project(':Animationmain')
     compile project(':Wheel_main')
     compile files('libs/zxing.jar')
-    compile 'com.facebook.fresco:fresco:0.8.1'
 }
