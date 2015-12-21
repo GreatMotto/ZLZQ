@@ -7,4 +7,15 @@
 
     <include layout="@layout/titlebar" />
 
+    <com.bm.zlzq.view.SwipeListView
+        android:id="@+id/swp_listview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@null"
+        android:scrollbars="none"
+        android:cacheColorHint="#00000000"
+        android:fadingEdge="none"
+        android:listSelector="@color/alpha_00"/>
+
 </LinearLayout>

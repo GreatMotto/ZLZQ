@@ -1,12 +1,16 @@
 package com.bm.zlzq;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -30,6 +34,7 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
     private TextView tv_content;
     private ProgressDialog pd;
     private String str;
+    public Dialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,6 +172,20 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
             list.add(bean);
         }
         return list;
+    }
+
+    public void showdialog(int gravity) {
+        alertDialog = new Dialog(this, R.style.MyDialogStyle);
+        Window window = alertDialog.getWindow();
+        window.setGravity(gravity);
+        window.setWindowAnimations(R.style.dlganim);
+        alertDialog.show();
+        WindowManager manager = getWindowManager();
+        Display display = manager.getDefaultDisplay();
+        int width = display.getWidth();
+        alertDialog.getWindow().setLayout(width,
+                WindowManager.LayoutParams.WRAP_CONTENT);
+        alertDialog.setCanceledOnTouchOutside(true);
     }
 
     @Override

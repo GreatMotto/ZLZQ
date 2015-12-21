@@ -15,4 +15,5 @@
     <color name="coupon_bg">#fde0b7</color>
     <color name="my_bg">#f9f9f9</color>
     <color name="my_order_finish">#61d533</color>
+    <color name="red">#e84c4c</color>
 </resources>

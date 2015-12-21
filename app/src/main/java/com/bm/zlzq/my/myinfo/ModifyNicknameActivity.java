@@ -35,7 +35,7 @@ public class ModifyNicknameActivity extends BaseActivity {
                 if (!TextUtils.isEmpty(et_nickname.getText().toString())) {
                     Intent intent = new Intent();
                     intent.putExtra("nickname", et_nickname.getText().toString());
-                    ModifyNicknameActivity.this.setResult(0, intent);
+                    ModifyNicknameActivity.this.setResult(RESULT_OK, intent);
                 }
                 onBackPressed();
             }

@@ -1,5 +1,8 @@
 package com.bm.zlzq.my;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,6 +25,8 @@ import com.bm.zlzq.my.recharge.MyRechargeActivity;
 import com.bm.zlzq.my.refundapplication.MyRefundActivity;
 import com.bm.zlzq.my.settings.MySettingsActivity;
 import com.bm.zlzq.my.share.MyShareActivity;
+import com.bm.zlzq.utils.ImageUtils;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 /**
  * Created by wangwm on 2015/12/3.
@@ -30,6 +35,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private View view;
     private RelativeLayout rl_my_order;
     private ImageView iv_edit;
+    private SimpleDraweeView sdv_pic;
+    private static final int RESULT_PHOTO = 0;// 头像
     private TextView tv_my_dfk, tv_my_dfh, tv_my_dsh, tv_my_ysh,
             tv_my_wddd, tv_my_wdsc, tv_my_wycz, tv_my_tzsq,
             tv_my_wyfx, tv_my_yhq, tv_my_shqd, tv_my_xtsz;
@@ -51,6 +58,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 
     private void initView() {
         iv_edit = (ImageView) view.findViewById(R.id.iv_edit);
+        sdv_pic = (SimpleDraweeView) view.findViewById(R.id.sdv_pic);
         rl_my_order = (RelativeLayout) view.findViewById(R.id.rl_my_order);
 
         tv_my_dfk = (TextView) view.findViewById(R.id.tv_my_dfk);
@@ -91,7 +99,9 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_edit:
-                ((BaseActivity) getActivity()).gotoOtherActivity(PersonalInfoActivity.class);
+//                ((BaseActivity) getActivity()).gotoOtherActivity(PersonalInfoActivity.class);
+                Intent intent = new Intent(getActivity(), PersonalInfoActivity.class);
+                startActivityForResult(intent, RESULT_PHOTO);
                 break;
             case R.id.rl_my_order:
                 ((BaseActivity) getActivity()).goto1OtherActivity(MyOrderActivity.class, 0);
@@ -134,6 +144,21 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 break;
             default:
                 break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK){
+            switch (requestCode){
+                case RESULT_PHOTO:
+                    Bitmap bitmap = data.getParcelableExtra("bitmap");
+                    sdv_pic.setImageBitmap(ImageUtils.toRoundBitmap(bitmap));
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

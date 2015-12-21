@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/my_bg"
@@ -18,19 +19,27 @@
             android:padding="@dimen/double_margin"
             android:src="@mipmap/my_edit" />
 
-        <ImageView
-            android:id="@+id/iv_pic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_pic"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/iv_edit"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/six_margin"
-            android:src="@mipmap/my_photo_bg" />
+            android:background="@mipmap/my_touxiang"
+            fresco:actualImageScaleType="focusCrop"
+            fresco:fadeDuration="500"
+            fresco:failureImage="@mipmap/ic_launcher"
+            fresco:failureImageScaleType="centerInside"
+            fresco:placeholderImageScaleType="focusCrop"
+            fresco:roundAsCircle="true"
+            fresco:roundingBorderColor="@color/alpha_00"
+            fresco:roundingBorderWidth="@dimen/half_margin" />
 
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/iv_pic"
+            android:layout_below="@+id/sdv_pic"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/margin"
             android:text="Christine Turner"

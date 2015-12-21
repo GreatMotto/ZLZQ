@@ -5,6 +5,7 @@ import android.app.Application;
 
 import com.bm.zlzq.constant.Constant;
 import com.bm.zlzq.utils.SharedPreferencesHelper;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -37,7 +38,7 @@ public class ZLZQApplication extends Application{
     public void onCreate() {
         super.onCreate();
         initImageLoader();
-//        Fresco.initialize(this);
+        Fresco.initialize(this);
 //
 //        ImageLoaderConfiguration configuration = ImageLoaderConfiguration.createDefault(this);
 //
