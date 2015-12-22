@@ -41,8 +41,11 @@ public class AdressSwipeAdapter extends BaseAdapter {
 
     public interface IOnItemClickListener {
         void onRightClick(View v, int position);
+
         void onDefaultAdrs(View v, int position);
+
         void onDelClick(View v, int position);
+
         void onEditClick(View v, int position);
     }
 
@@ -79,6 +82,8 @@ public class AdressSwipeAdapter extends BaseAdapter {
         TextView item_right_text = ViewHolder.get(convertView, R.id.item_right_txt);
 
         TextView tv_name = ViewHolder.get(convertView, R.id.tv_name);
+        TextView tv_mobile = ViewHolder.get(convertView, R.id.tv_mobile);
+        TextView tv_address = ViewHolder.get(convertView, R.id.tv_address);
         RelativeLayout rl_set_default = ViewHolder.get(convertView, R.id.rl_set_default);
         final ImageView iv_default = ViewHolder.get(convertView, R.id.iv_default);
         final TextView tv_default = ViewHolder.get(convertView, R.id.tv_default);
@@ -95,6 +100,8 @@ public class AdressSwipeAdapter extends BaseAdapter {
         item_right.setLayoutParams(lp2);
 //
         tv_name.setText(list.get(position).name);
+        tv_mobile.setText(list.get(position).mobile);
+        tv_address.setText(list.get(position).area + list.get(position).street + list.get(position).detailaddress);
         item_right_text.setText("删除");
 
         if (list.get(position).isDefault.equals("1")) {
@@ -104,7 +111,6 @@ public class AdressSwipeAdapter extends BaseAdapter {
             iv_default.setImageResource(R.mipmap.gwc_wxz);
             tv_default.setText("设为默认");
         }
-
         rl_set_default.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -3,15 +3,22 @@ package com.bm.zlzq.view;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.bm.zlzq.R;
+import com.bm.zlzq.bean.AreaBean;
+import com.bm.zlzq.bean.CityBean;
+import com.bm.zlzq.bean.ProvinceBean;
+import com.bm.zlzq.utils.AddressUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,14 +33,10 @@ import antistatic.spinnerwheel.adapters.AbstractWheelTextAdapter;
 public class WheelDialog {
 
     private Dialog alertDialog;
-    protected AbstractWheel wheelview;
-    private String province = "", city = "";
-    //    public List<ProvinceBean> list = new ArrayList<ProvinceBean>();
+    private String province = "", city = "", area = "";
     public static final String ENCODING = "UTF-8";
-    public String item = "", provinceId, cityId;
-
-    AbstractWheel wv_province, wv_city;
-
+    public String item = "", provinceId, cityId, areaId;
+    private AbstractWheel wv_province, wv_city, wv_area;
     private WheelDialog() {
 
     }
@@ -64,50 +67,93 @@ public class WheelDialog {
         alertDialog.setCanceledOnTouchOutside(true);
     }
 
-//    public void chooseCity(final Activity context, final TextView v,
-//                           final GetCityIdListener listener) {
-//        //list.clear();
-//        //testJson(context);
-//        list= AddressUtil.getInstance(context).getListProvince();
-//        showDialog(context);
-//        alertDialog.getWindow().setContentView(R.layout.wheel_area);
-//        TextView tv_sure = (TextView) alertDialog.getWindow().findViewById(
-//                R.id.tv_sure);
-//        TextView tv_cancel = (TextView) alertDialog.getWindow().findViewById(
-//                R.id.tv_cancel);
-//        province = list.get(0).name;
-//        city = list.get(0).children.get(0).name;
-//        provinceId = list.get(0).id;
-//        cityId = list.get(0).children.get(0).id;
-//        wv_province = (AbstractWheel) alertDialog.findViewById(R.id.wv_province);
-//        wv_city = (AbstractWheel) alertDialog.findViewById(R.id.wv_city);
-//        wv_province.setVisibleItems(3);
-//        wv_province.setViewAdapter(new IdentifyAdapter(context, null, true));
-//        wv_province.addChangingListener(new OnWheelChangedListener() {
-//
-//            @Override
-//            public void onChanged(AbstractWheel wheel, int oldValue, int newValue) {
-//                // TODO Auto-generated method stub
-//                province = list.get(newValue).name;
-//                city = list.get(newValue).children.get(0).name;
-//                provinceId = list.get(newValue).id;
-//                cityId = list.get(newValue).children.get(0).id;
-//                wv_city.setViewAdapter(new IdentifyAdapter(context, list.get(newValue).children, false));
-//                wv_city.setCurrentItem(0);
-//                // v.setText(identify);
-//            }
-//        });
-//        wv_city.setVisibleItems(3);
-//        wv_city.setViewAdapter(new IdentifyAdapter(context, list.get(0).children, false));
-//        wv_city.addChangingListener(new OnWheelChangedListener() {
-//
-//            @Override
-//            public void onChanged(AbstractWheel wheel, int oldValue, int newValue) {
-//                // TODO Auto-generated method stub
-//                city = list.get(wv_province.getCurrentItem()).children.get(wv_city.getCurrentItem()).name;
-//                cityId = list.get(wv_province.getCurrentItem()).children.get(wv_city.getCurrentItem()).id;
-//            }
-//        });
+    public List<ProvinceBean> list = new ArrayList<ProvinceBean>();
+
+    public void chooseCity(final Activity context, final TextView v,
+                           final GetCityIdListener listener) {
+        list.clear();
+        list.addAll(AddressUtil.getInstance(context).getListProvince());
+        showDialog(context);
+        alertDialog.getWindow().setContentView(R.layout.wheel_area);
+        TextView tv_title = (TextView) alertDialog.getWindow().findViewById(
+                R.id.tv_title);
+        TextView tv_sure = (TextView) alertDialog.getWindow().findViewById(
+                R.id.tv_sure);
+        tv_title.setText("选择地区");
+
+        province = list.get(0).name;
+        city = list.get(0).cityList.get(0).name;
+        area = list.get(0).cityList.get(0).areaList.get(0).name;
+
+        provinceId = list.get(0).id;
+        cityId = list.get(0).cityList.get(0).id;
+        areaId = list.get(0).cityList.get(0).areaList.get(0).id;
+
+        wv_province = (AbstractWheel) alertDialog.findViewById(R.id.wv_province);
+        wv_city = (AbstractWheel) alertDialog.findViewById(R.id.wv_city);
+        wv_area = (AbstractWheel) alertDialog.findViewById(R.id.wv_area);
+
+        wv_province.setVisibleItems(3);
+        wv_province.setViewAdapter(new IdentifyAdapter(context, null, null, true, false));
+        wv_province.addChangingListener(new OnWheelChangedListener() {
+
+            @Override
+            public void onChanged(AbstractWheel wheel, int oldValue, int newValue) {
+                province = list.get(newValue).name;
+                if (list.get(newValue).cityList.size() > 0) {
+                    city = list.get(newValue).cityList.get(0).name;
+                    area = list.get(newValue).cityList.get(0).areaList.get(0).name;
+                }
+                provinceId = list.get(newValue).id;
+                if (list.get(newValue).cityList.size() > 0) {
+                    cityId = list.get(newValue).cityList.get(0).id;
+                    areaId = list.get(newValue).cityList.get(0).areaList.get(0).id;
+                }
+
+                if (list.get(newValue).cityList.size() > 0) {
+                    wv_city.setVisibility(View.VISIBLE);
+                    wv_area.setVisibility(View.VISIBLE);
+                    wv_city.setViewAdapter(new IdentifyAdapter(context, list.get(newValue).cityList, null, false, true));
+                    wv_area.setViewAdapter(new IdentifyAdapter(context, null, list.get(newValue).cityList.get(0).areaList, false, false));
+                    wv_city.setCurrentItem(0);
+                    wv_area.setCurrentItem(0);
+                }else {
+                    wv_city.setVisibility(View.GONE);
+                    wv_area.setVisibility(View.GONE);
+                    city = "";
+                    area = "";
+                    cityId = "";
+                    areaId = "";
+                }
+            }
+        });
+        wv_city.setVisibleItems(3);
+        wv_city.setViewAdapter(new IdentifyAdapter(context, list.get(0).cityList, null, false, true));
+        wv_city.addChangingListener(new OnWheelChangedListener() {
+
+            @Override
+            public void onChanged(AbstractWheel wheel, int oldValue, int newValue) {
+                city = list.get(wv_province.getCurrentItem()).cityList.get(newValue).name;
+                area = list.get(wv_province.getCurrentItem()).cityList.get(newValue).areaList.get(0).name;
+
+                cityId = list.get(wv_province.getCurrentItem()).cityList.get(newValue).id;
+                areaId = list.get(wv_province.getCurrentItem()).cityList.get(newValue).areaList.get(0).id;
+
+                wv_area.setViewAdapter(new IdentifyAdapter(context, null, list.get(wv_province.getCurrentItem()).cityList.get(newValue).areaList, false, false));
+                wv_area.setCurrentItem(0);
+            }
+        });
+        wv_area.setVisibleItems(3);
+        wv_area.setViewAdapter(new IdentifyAdapter(context, null, list.get(wv_province.getCurrentItem()).cityList.get(0).areaList, false, false));
+        wv_area.addChangingListener(new OnWheelChangedListener() {
+
+            @Override
+            public void onChanged(AbstractWheel wheel, int oldValue, int newValue) {
+                // TODO Auto-generated method stub
+                area = list.get(wv_province.getCurrentItem()).cityList.get(wv_city.getCurrentItem()).areaList.get(newValue).name;
+                areaId = list.get(wv_province.getCurrentItem()).cityList.get(wv_city.getCurrentItem()).areaList.get(newValue).id;
+            }
+        });
 //        tv_cancel.setOnClickListener(new OnClickListener() {
 //
 //            @Override
@@ -116,31 +162,33 @@ public class WheelDialog {
 //
 //            }
 //        });
-//        tv_sure.setOnClickListener(new OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//                if (province.equals(city)) {
-//                    v.setText(city);
-//                } else {
-//                    v.setText(province + "" + city);
-//                }
-//                listener.GetCityId(provinceId, cityId);
-//                alertDialog.cancel();
-//            }
-//        });
-//        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-//            @Override
-//            public void onCancel(DialogInterface dialog) {
-//                Log.e("setOnCancelListener", "setOnCancelListener");
-//                list.clear();
-//            }
-//        });
-//
-//    }
+        tv_sure.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                if (city.equals("市辖区") || city.equals("县")) {
+                    city = "";
+                }
+                if (area.equals("市辖区")) {
+                    area = "";
+                }
+                v.setText(province + city + area);
+                listener.GetCityId(provinceId, cityId, areaId);
+                alertDialog.cancel();
+            }
+        });
+        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                Log.e("setOnCancelListener", "setOnCancelListener");
+                list.clear();
+            }
+        });
+
+    }
+
 
     private List<String> lists = new ArrayList<String>();
-
 
     public void ChossDateOrNumDlg(final Activity context, final String title, final TextView textView, List<String> list,
                                   final GetCityIdListener listener) {
@@ -151,24 +199,19 @@ public class WheelDialog {
                 R.id.tv_title);
         TextView tv_sure = (TextView) alertDialog.getWindow().findViewById(
                 R.id.tv_sure);
-//        lists.add("不限");
-//        lists.add("18-22岁");
-//        lists.add("23-27岁");
-//        lists.add("27-35岁");
         lists.addAll(list);
         tv_title.setText(title);
         item = list.get(0);
         final AbstractWheel wv_view = (AbstractWheel) alertDialog.findViewById(R.id.wv_view);
         wv_view.setVisibleItems(3);
-        AgeAdapetr ageAdapetr = new AgeAdapetr(context, lists);
-        wv_view.setViewAdapter(ageAdapetr);
+        ChooseAdapetr chooseAdapetr = new ChooseAdapetr(context, lists);
+        wv_view.setViewAdapter(chooseAdapetr);
         wv_view.addChangingListener(new OnWheelChangedListener() {
 
             @Override
             public void onChanged(AbstractWheel wheel, int oldValue, int newValue) {
                 // TODO Auto-generated method stub
                 item = lists.get(newValue);
-                // v.setText(identify);
             }
         });
 //        tv_cancel.setOnClickListener(new OnClickListener() {
@@ -183,7 +226,7 @@ public class WheelDialog {
             @Override
             public void onClick(View view) {
                 textView.setText(item);
-                listener.GetCityId(item, "");
+                listener.GetCityId(item, "", "");
                 alertDialog.cancel();
             }
         });
@@ -192,97 +235,66 @@ public class WheelDialog {
     /**
      * 类型选择弹出框的适配器
      */
-//    public class IdentifyAdapter extends AbstractWheelTextAdapter {
-//
-//        List<CityBean> listcity;
-//        boolean isProvince;
-//
-//        /**
-//         * Constructor
-//         */
-//        protected IdentifyAdapter(Context context, List<CityBean> listcity, boolean isProvince) {
-//            super(context, R.layout.wheel_item, DEFAULT_TEXT_COLOR);
-//            this.listcity = listcity;
-//            this.isProvince = isProvince;
-//            setItemTextResource(R.id.tv_identify_item);
-//        }
-//
-//
-//        @Override
-//        public View getItem(int index, View cachedView, ViewGroup parent) {
-//            View view = super.getItem(index, cachedView, parent);
-//            return view;
-//        }
-//
-//        @Override
-//        public int getItemsCount() {
-//            return isProvince ? list.size() : listcity.size();
-//        }
-//
-//        @Override
-//        protected CharSequence getItemText(int index) {
-//
-//            return isProvince ? list.get(index).name : listcity.get(index).name;
-//        }
-//
-//        @Override
-//        public int getItemResource() {
-//
-//            return super.getItemResource();
-//        }
-//
-//    }
+    public class IdentifyAdapter extends AbstractWheelTextAdapter {
 
-    /*
-    // 解析assets文件
-    private String getFromAssets(Context context, String fileName) {
-        String result = "";
-        try {
-            InputStream in = context.getResources().getAssets().open(fileName);
-            // 获取文件的字节数
-            int lenght = in.available();
-            // 创建byte数组
-            byte[] buffer = new byte[lenght];
-            // 将文件中的数据读到byte数组中
-            in.read(buffer);
+        List<CityBean> listcity;
+        List<AreaBean> listarea;
+        boolean isProvince;
+        boolean isCity;
 
-            result = EncodingUtils.getString(buffer, ENCODING);
-        } catch (Exception e) {
-            e.printStackTrace();
+        /**
+         * Constructor
+         */
+        protected IdentifyAdapter(Context context, List<CityBean> listcity, List<AreaBean> listarea, boolean isProvince, boolean isCity) {
+            super(context, R.layout.wheel_item, DEFAULT_TEXT_COLOR);
+            this.listcity = listcity;
+            this.listarea = listarea;
+            this.isCity = isCity;
+            this.isProvince = isProvince;
+            setItemTextResource(R.id.tv_identify_item);
         }
-        return result;
-    }
 
-    public String getCityNameById(Context context, String provinceId, String cityId) {
-        testJson(context);
-        String names = "";
-        for (ProvinceBean provinceBean : list) {
-            if (provinceBean.id.equals(provinceId)) {
-                names = provinceBean.name;
-                for (CityBean cityBean : provinceBean.children) {
-                    if (cityBean.id.equals(cityId)) {
-                        return names.equals(cityBean.name) ? names : (names + " " + cityBean.name);
-                    }
-                }
+
+        @Override
+        public View getItem(int index, View cachedView, ViewGroup parent) {
+            View view = super.getItem(index, cachedView, parent);
+            return view;
+        }
+
+        @Override
+        public int getItemsCount() {
+            if (isProvince) {
+                return list.size();
+            } else if (isCity) {
+                return listcity.size();
+            } else {
+                return listarea.size();
             }
         }
-        return names;
+
+        @Override
+        protected CharSequence getItemText(int index) {
+            if (isProvince) {
+                return list.get(index).name;
+            } else if (isCity) {
+                return listcity.get(index).name;
+            } else {
+                return listarea.get(index).name;
+            }
+        }
+
+        @Override
+        public int getItemResource() {
+
+            return super.getItemResource();
+        }
+
     }
 
-    // 解析JSON，获取城市列表
-    private void testJson(Context context) {
-        list.clear();
-        String jsonData_city = getFromAssets(context, "city.json");
-        Gson gson = new Gson();
-        list = gson.fromJson(jsonData_city, new TypeToken<List<ProvinceBean>>() {
-        }.getType());
-    }
-*/
-    private class AgeAdapetr extends AbstractWheelTextAdapter {
+    private class ChooseAdapetr extends AbstractWheelTextAdapter {
         List<String> lists;
 
-        protected AgeAdapetr(Context context, List<String> lists) {
-//            super(context);
+        protected ChooseAdapetr(Context context, List<String> lists) {
             super(context, R.layout.wheel_item, DEFAULT_TEXT_COLOR);
             this.lists = lists;
             setItemTextResource(R.id.tv_identify_item);
@@ -309,7 +321,7 @@ public class WheelDialog {
 
     public interface GetCityIdListener {
 
-        public void GetCityId(String provinceId, String cityId);
+        void GetCityId(String provinceId, String cityId, String areaId);
     }
 
 }

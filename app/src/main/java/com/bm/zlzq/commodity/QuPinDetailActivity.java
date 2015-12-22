@@ -204,7 +204,7 @@ public class QuPinDetailActivity extends BaseActivity{
                 list.add("6个月");
                 WheelDialog.getInstance().ChossDateOrNumDlg(this, "租赁期", tv_rend_date, list, new WheelDialog.GetCityIdListener() {
                     @Override
-                    public void GetCityId(String provinceId, String cityId) {
+                    public void GetCityId(String provinceId, String cityId, String areaId) {
 
                     }
                 });
@@ -218,7 +218,7 @@ public class QuPinDetailActivity extends BaseActivity{
                 list.addAll(num);
                 WheelDialog.getInstance().ChossDateOrNumDlg(this, "数量", tv_num, list, new WheelDialog.GetCityIdListener() {
                     @Override
-                    public void GetCityId(String provinceId, String cityId) {
+                    public void GetCityId(String provinceId, String cityId, String areaId) {
 
                     }
                 });

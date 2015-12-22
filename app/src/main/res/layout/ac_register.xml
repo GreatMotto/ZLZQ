@@ -54,6 +54,7 @@
                         android:layout_height="match_parent"
                         android:background="@android:color/transparent"
                         android:hint="请输入手机号码"
+                        android:textCursorDrawable="@null"
                         android:inputType="number"
                         android:maxLength="11"
                         android:textColorHint="@color/dl_text_hint_color"
@@ -95,6 +96,7 @@
                             android:layout_height="match_parent"
                             android:background="@android:color/transparent"
                             android:hint="请输入验证码"
+                            android:textCursorDrawable="@null"
                             android:inputType="number"
                             android:maxLength="6"
                             android:textColorHint="@color/dl_text_hint_color"
@@ -142,6 +144,7 @@
                         android:layout_height="match_parent"
                         android:background="@android:color/transparent"
                         android:hint="请输入邀请码"
+                        android:textCursorDrawable="@null"
                         android:maxLength="10"
                         android:textColorHint="@color/dl_text_hint_color"
                         android:textSize="@dimen/normal_text_size" />
@@ -176,6 +179,7 @@
                         android:layout_height="match_parent"
                         android:background="@android:color/transparent"
                         android:hint="请输入密码"
+                        android:textCursorDrawable="@null"
                         android:inputType="textPassword"
                         android:textColorHint="@color/dl_text_hint_color"
                         android:textSize="@dimen/normal_text_size" />
@@ -210,6 +214,7 @@
                         android:layout_height="match_parent"
                         android:background="@android:color/transparent"
                         android:hint="请再次输入密码"
+                        android:textCursorDrawable="@null"
                         android:inputType="textPassword"
                         android:textColorHint="@color/dl_text_hint_color"
                         android:textSize="@dimen/normal_text_size" />

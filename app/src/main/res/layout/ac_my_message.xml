@@ -38,20 +38,21 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/margin"
-                android:layout_marginTop="@dimen/margin">
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="@dimen/half_margin">
 
                 <ImageView
                     android:id="@+id/iv_new_msg_off"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/switch_off"
+                    android:src="@mipmap/off"
                     android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/iv_new_msg_on"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/switch_on" />
+                    android:src="@mipmap/on" />
             </RelativeLayout>
         </RelativeLayout>
 
@@ -102,20 +103,21 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="@dimen/margin"
-                    android:layout_marginTop="@dimen/margin">
+                    android:layout_marginTop="7dp"
+                    android:layout_marginBottom="@dimen/half_margin">
 
                     <ImageView
                         android:id="@+id/iv_sound_off"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/switch_off"
+                        android:src="@mipmap/off"
                         android:visibility="gone" />
 
                     <ImageView
                         android:id="@+id/iv_sound_on"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/switch_on" />
+                        android:src="@mipmap/on" />
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -143,21 +145,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/margin"
-                    android:layout_marginTop="@dimen/margin">
+                    android:layout_marginRight="@dimen/margin">
 
                     <ImageView
                         android:id="@+id/iv_shock_off"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/switch_off"
+                        android:src="@mipmap/off"
                         android:visibility="gone" />
 
                     <ImageView
                         android:id="@+id/iv_shock_on"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/switch_on" />
+                        android:src="@mipmap/on" />
                 </RelativeLayout>
             </RelativeLayout>
 
