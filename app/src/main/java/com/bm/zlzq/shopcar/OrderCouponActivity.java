@@ -1,26 +1,29 @@
 package com.bm.zlzq.shopcar;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bm.zlzq.BaseActivity;
 import com.bm.zlzq.R;
+import com.bm.zlzq.bean.CouponBean;
+import com.bm.zlzq.my.coupon.CouponAdapter;
 import com.bm.zlzq.my.coupon.MyCouponActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by wangwm on 2015/12/15.
  */
-public class CouponActivity extends BaseActivity {
+public class OrderCouponActivity extends BaseActivity {
     private TextView tv_get_coupon;
     private View layout_footer;
     private ListView lv_coupon;
     private CouponAdapter adapter;
+    private List<CouponBean> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,44 +46,24 @@ public class CouponActivity extends BaseActivity {
             }
         });
 
-        adapter = new CouponAdapter(this);
+        // 模拟优惠券数据
+        for (int i = 0; i < 2; i++) {
+            CouponBean db = new CouponBean();
+            db.enddate = "到期日期：2015-12-31";
+            db.fullprice = "500";
+            db.minusprice = "30";
+            list.add(db);
+        }
+
+        for (int i = 0; i < 2; i++) {
+            CouponBean db = new CouponBean();
+            db.enddate = "到期日期：2015-12-31";
+            db.minusprice = "50";
+            list.add(db);
+        }
+
+        adapter = new CouponAdapter(this, list, true);
         lv_coupon.setAdapter(adapter);
     }
 
-    public class CouponAdapter extends BaseAdapter {
-        private Context context;
-
-        public CouponAdapter(Context context) {
-            this.context = context;
-        }
-
-        @Override
-        public int getCount() {
-            return 3;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                convertView = View.inflate(context, R.layout.item_coupon, null);
-            }
-            convertView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onBackPressed();
-                }
-            });
-            return convertView;
-        }
-    }
 }

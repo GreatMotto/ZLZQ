@@ -7,4 +7,53 @@
 
     <include layout="@layout/titlebar" />
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"
+                android:text="我的优惠券"
+                android:textColor="@color/app_black"
+                android:textSize="@dimen/big_text_size" />
+
+            <com.bm.zlzq.view.NoScrollListView
+                android:id="@+id/lv_my_coupon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/coupon_bg"
+                android:divider="@null"
+                android:listSelector="@color/alpha_00"
+                android:scrollbars="none" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"
+                android:text="可领取优惠券"
+                android:textColor="@color/app_black"
+                android:textSize="@dimen/big_text_size" />
+
+            <com.bm.zlzq.view.NoScrollListView
+                android:id="@+id/lv_get_coupon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/coupon_bg"
+                android:divider="@null"
+                android:listSelector="@color/alpha_00"
+                android:scrollbars="none"
+                android:layout_marginBottom="@dimen/double_margin" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

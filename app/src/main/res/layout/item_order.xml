@@ -27,6 +27,7 @@
                 android:layout_margin="@dimen/margin">
 
                 <TextView
+                    android:id="@+id/tv_order_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="订单号：客户制定规则"
@@ -141,6 +142,7 @@
                 android:layout_margin="@dimen/margin">
 
                 <TextView
+                    android:id="@+id/tv_kuaidi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="配送方式：快递"
@@ -174,9 +176,11 @@
         </LinearLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin">
+            android:paddingTop="@dimen/margin"
+            android:paddingRight="@dimen/margin">
 
             <TextView
                 android:id="@+id/tv_black_btn"
@@ -203,12 +207,13 @@
                 android:textColor="@color/app_theme"
                 android:textSize="@dimen/normal_text_size" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_below="@+id/tv_black_btn"
+                android:layout_marginTop="@dimen/margin"
+                android:layout_height="0.5dp"
+                android:background="@mipmap/hm_line" />
+
         </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@mipmap/hm_line" />
-
     </LinearLayout>
 </LinearLayout>

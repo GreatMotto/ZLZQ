@@ -61,6 +61,8 @@ public class MerchantChooseActivity extends BaseActivity{
         for (int i = 0; i < 10; i++) {
             MerchantBean db = new MerchantBean();
             db.name = "宝隆便利店 " + i;
+            db.distance = "23km";
+            db.address = "地址:徐州市中山南路169号";
             list.add(db);
         }
         adapter = new MerchantChooseAdapter(this, list, clickInterface);

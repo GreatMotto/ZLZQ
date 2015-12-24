@@ -5,108 +5,22 @@
     android:background="@color/app_bg"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/six_margin"
-        android:background="@color/app_theme"
-        android:focusable="true"
-        android:focusableInTouchMode="true">
-
-        <LinearLayout
-            android:id="@+id/ll_back"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/double_margin"
-                android:layout_marginRight="@dimen/margin"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/back" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:background="@mipmap/qp_srch_bg"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="@dimen/four_margin"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin"
-                    android:layout_marginRight="@dimen/half_margin"
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/hm_sousuo" />
-            </LinearLayout>
-
-
-            <EditText
-                android:id="@+id/et_search"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:singleLine="true"
-                android:textCursorDrawable="@null"
-                android:hint="水果"
-                android:textColorHint="@color/dl_text_hint_color"
-                android:textSize="@dimen/normal_text_size" />
-
-            <LinearLayout
-                android:id="@+id/ll_delete"
-                android:layout_width="@dimen/four_margin"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/half_margin"
-                    android:layout_marginRight="@dimen/margin"
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/qp_srch_clear" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_sousuo"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/double_margin"
-            android:gravity="center"
-            android:text="搜索"
-            android:textColor="@color/white"
-            android:textSize="@dimen/normal_text_size" />
-    </RelativeLayout>
+    <include layout="@layout/search_titlebar" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/three_margin"
         android:layout_marginBottom="@dimen/margin"
+        android:layout_marginTop="@dimen/three_margin"
         android:text="搜索历史"
-        android:textSize="@dimen/big_text_size"
-        android:textColor="@color/app_black"/>
+        android:textColor="@color/app_black"
+        android:textSize="@dimen/big_text_size" />
 
     <ListView
         android:id="@+id/lv_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@null"/>
+        android:divider="@null" />
 
 </LinearLayout>

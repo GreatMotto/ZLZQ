@@ -75,7 +75,7 @@ public class AdressSwipeAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         final int thisPosition = position;
         if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.swp_lv_item, parent, false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.swp_lv_item_address, parent, false);
         }
         View item_left = ViewHolder.get(convertView, R.id.item_left);
         View item_right = ViewHolder.get(convertView, R.id.item_right);

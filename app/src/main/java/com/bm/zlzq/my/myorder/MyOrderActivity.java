@@ -58,41 +58,48 @@ public class MyOrderActivity extends BaseActivity {
 
         //模拟订单数据--------------------------
         final MyOrderBean db1 = new MyOrderBean();
-        db1.id = "1";
+        db1.ordernumber = "订单号：E5212120";
         db1.state = "等待买家付款";
+        db1.name = "进口蓝莓125g/份鲜果浆新鲜水果";
+        db1.price = "￥3288.00";
         db1.blkbtntext = "取消订单";
         db1.orgbtntext = "付款";
         list.add(db1);
 
         final MyOrderBean db2 = new MyOrderBean();
-        db2.id = "2";
+        db2.ordernumber = "订单号：E5212120";
         db2.state = "等待卖家发货";
+        db2.name = "进口蓝莓125g/份鲜果浆新鲜水果";
+        db2.price = "￥3288.00";
         db2.blkbtntext = "取消订单";
-        db2.orgbtntext = "提醒发货";
+        db2.orgbtntext = "确认发货";
         list.add(db2);
 
         final MyOrderBean db3 = new MyOrderBean();
-        db3.id = "3";
+        db3.ordernumber = "订单号：E5212120";
         db3.state = "等待买家确认收货";
+        db3.name = "进口蓝莓125g/份鲜果浆新鲜水果";
+        db3.price = "￥3288.00";
         db3.blkbtntext = "查看物流";
         db3.orgbtntext = "确认收货";
         list.add(db3);
 
         final MyOrderBean db4 = new MyOrderBean();
-        db4.id = "4";
+        db4.ordernumber = "订单号：E5212120";
         db4.state = "交易结束";
+        db4.name = "进口蓝莓125g/份鲜果浆新鲜水果";
+        db4.price = "￥3288.00";
         db4.blkbtntext = "续租";
         db4.orgbtntext = "晒单评价";
         list.add(db4);
         //-----------------------------------------------
 
-        adapter = new MyOrderAdapter(this, list);
+        adapter = new MyOrderAdapter(this, list, 0);
         lv_order.setAdapter(adapter);
-
-        view_one.setVisibility(View.VISIBLE);
 
         if (flag == 0){
             radiogroup.check(R.id.rb_one);
+            view_one.setVisibility(View.VISIBLE);
         } else if (flag == 1){
             radiogroup.check(R.id.rb_two);
             view_one.setVisibility(View.GONE);

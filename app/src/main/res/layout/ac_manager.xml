@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/titlebar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/six_margin">
+
+        <RadioGroup
+            android:id="@+id/radiogroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_one"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/six_margin"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:text="订单"
+                android:textColor="@drawable/hm_listbar_color"
+                android:textSize="@dimen/normal_text_size" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/double_margin"
+                android:layout_marginTop="@dimen/double_margin"
+                android:background="@color/hm_line_gray" />
+
+            <RadioButton
+                android:id="@+id/rb_two"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/six_margin"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:text="退租"
+                android:textColor="@drawable/hm_listbar_color"
+                android:textSize="@dimen/normal_text_size" />
+
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="0.5dp"
+                android:layout_weight="1">
+
+                <View
+                    android:id="@+id/view_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/margin"
+                    android:layout_marginRight="@dimen/margin"
+                    android:background="@mipmap/hm_rb_line"
+                    android:visibility="gone" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="0.5dp"
+                android:layout_weight="1">
+
+                <View
+                    android:id="@+id/view_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/margin"
+                    android:layout_marginRight="@dimen/margin"
+                    android:background="@mipmap/hm_rb_line"
+                    android:visibility="gone" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent" />
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@mipmap/hm_line" />
+
+
+    <ListView
+        android:id="@+id/lv_order"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:cacheColorHint="#00000000"
+        android:fadingEdge="none"
+        android:divider="@null"
+        android:listSelector="@color/alpha_00"
+        android:scrollbars="none"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@mipmap/hm_line" />
+
+    <RadioGroup
+        android:id="@+id/rg_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/hm_bottom_bar"
+        android:orientation="horizontal"
+        android:padding="@dimen/half_margin">
+
+        <RadioButton
+            style="@style/managerBtn"
+            android:id="@+id/rb_first"
+            android:drawableTop="@drawable/mng_bottom_all"
+            android:text="全部" />
+
+        <RadioButton
+            style="@style/managerBtn"
+            android:id="@+id/rb_second"
+            android:drawableTop="@drawable/mng_bottom_dailingqu"
+            android:text="待领取" />
+
+        <RadioButton
+            style="@style/managerBtn"
+            android:id="@+id/rb_third"
+            android:drawableTop="@drawable/mng_bottom_daiqueren"
+            android:text="已交货" />
+
+    </RadioGroup>
+
+</LinearLayout>

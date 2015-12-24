@@ -15,8 +15,10 @@ import android.widget.TextView;
 
 import com.bm.zlzq.BaseActivity;
 import com.bm.zlzq.R;
+import com.bm.zlzq.constant.Constant;
 import com.bm.zlzq.my.address.MyAddressActivity;
-import com.bm.zlzq.my.business.BusinessListActivity;
+import com.bm.zlzq.my.manager.MyManagerActivity;
+import com.bm.zlzq.my.merchant.MerchantListActivity;
 import com.bm.zlzq.my.collection.MyCollectionActivity;
 import com.bm.zlzq.my.coupon.MyCouponActivity;
 import com.bm.zlzq.my.myinfo.PersonalInfoActivity;
@@ -33,11 +35,11 @@ import com.facebook.drawee.view.SimpleDraweeView;
  */
 public class MyFragment extends Fragment implements View.OnClickListener {
     private View view;
-    private RelativeLayout rl_my_order;
+    private RelativeLayout rl_my_order,rl_phone_and_time,rl_manager;
     private ImageView iv_edit;
     private SimpleDraweeView sdv_pic;
     private static final int RESULT_PHOTO = 0;// 头像
-    private TextView tv_my_dfk, tv_my_dfh, tv_my_dsh, tv_my_ysh,
+    private TextView tv_recharge, tv_my_dfk, tv_my_dfh, tv_my_dsh, tv_my_ysh,
             tv_my_wddd, tv_my_wdsc, tv_my_wycz, tv_my_tzsq,
             tv_my_wyfx, tv_my_yhq, tv_my_shqd, tv_my_xtsz;
 
@@ -60,6 +62,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         iv_edit = (ImageView) view.findViewById(R.id.iv_edit);
         sdv_pic = (SimpleDraweeView) view.findViewById(R.id.sdv_pic);
         rl_my_order = (RelativeLayout) view.findViewById(R.id.rl_my_order);
+        tv_recharge = (TextView) view.findViewById(R.id.tv_recharge);
 
         tv_my_dfk = (TextView) view.findViewById(R.id.tv_my_dfk);
         tv_my_dfh = (TextView) view.findViewById(R.id.tv_my_dfh);
@@ -75,9 +78,14 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         tv_my_shqd = (TextView) view.findViewById(R.id.tv_my_shqd);
         tv_my_xtsz = (TextView) view.findViewById(R.id.tv_my_xtsz);
 
+        rl_phone_and_time = (RelativeLayout) view.findViewById(R.id.rl_phone_and_time);
+        rl_manager = (RelativeLayout) view.findViewById(R.id.rl_manager);
+
+        rl_manager.setOnClickListener(this);
 
         iv_edit.setOnClickListener(this);
         rl_my_order.setOnClickListener(this);
+        tv_recharge.setOnClickListener(this);
 
         tv_my_dfk.setOnClickListener(this);
         tv_my_dfh.setOnClickListener(this);
@@ -97,11 +105,14 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.iv_edit:
 //                ((BaseActivity) getActivity()).gotoOtherActivity(PersonalInfoActivity.class);
                 Intent intent = new Intent(getActivity(), PersonalInfoActivity.class);
                 startActivityForResult(intent, RESULT_PHOTO);
+                break;
+            case R.id.tv_recharge:
+                ((BaseActivity) getActivity()).gotoOtherActivity(MyRechargeActivity.class);
                 break;
             case R.id.rl_my_order:
                 ((BaseActivity) getActivity()).goto1OtherActivity(MyOrderActivity.class, 0);
@@ -137,10 +148,15 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 ((BaseActivity) getActivity()).gotoOtherActivity(MyCouponActivity.class);
                 break;
             case R.id.tv_my_shqd:
-                ((BaseActivity) getActivity()).gotoOtherActivity(BusinessListActivity.class);
+                ((BaseActivity) getActivity()).gotoOtherActivity(MerchantListActivity.class);
                 break;
             case R.id.tv_my_xtsz:
                 ((BaseActivity) getActivity()).gotoOtherActivity(MySettingsActivity.class);
+                break;
+            case R.id.rl_manager:
+                Intent intent1 = new Intent(getActivity(), MyManagerActivity.class);
+                intent1.putExtra(Constant.TITLE, "一号店");
+                startActivity(intent1);
                 break;
             default:
                 break;
@@ -150,8 +166,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK){
-            switch (requestCode){
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
                 case RESULT_PHOTO:
                     Bitmap bitmap = data.getParcelableExtra("bitmap");
                     sdv_pic.setImageBitmap(ImageUtils.toRoundBitmap(bitmap));

@@ -67,6 +67,7 @@
                 android:textSize="@dimen/normal_text_size" />
 
             <TextView
+                android:id="@+id/tv_recharge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin"
@@ -164,7 +165,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="10dp"
         android:background="@color/white"
         android:orientation="vertical">
 
@@ -272,11 +273,13 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/rl_phone_and_time"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_margin="@dimen/margin"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
@@ -292,6 +295,47 @@
             android:text="工作时间 9:00-19:00"
             android:textColor="@color/hm_bottom_text"
             android:textSize="@dimen/normal_text_size"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_manager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="@dimen/half_margin"
+        android:layout_marginBottom="@dimen/half_margin"
+        android:background="@color/white">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@mipmap/hm_line"
+            android:layout_alignParentTop="true"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="店铺管理员"
+            android:textColor="@color/app_black"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:textSize="@dimen/normal_text_size" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="12dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/my_jt" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@mipmap/hm_line"
+            android:layout_alignParentBottom="true"/>
 
     </RelativeLayout>
 

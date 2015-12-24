@@ -1,6 +1,7 @@
 package com.bm.zlzq.shopcar;
 
 import android.app.Activity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -8,7 +9,6 @@ import android.widget.TextView;
 
 import com.bm.zlzq.R;
 import com.bm.zlzq.bean.MerchantBean;
-import com.bm.zlzq.utils.DialogUtil;
 import com.bm.zlzq.utils.ViewHolder;
 
 import java.util.ArrayList;
@@ -47,10 +47,15 @@ public class MerchantChooseAdapter extends BaseAdapter{
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null){
-            convertView = View.inflate(context, R.layout.item_merchant, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_merchant, null);
         }
         TextView tv_name = ViewHolder.get(convertView, R.id.tv_name);
+        TextView tv_distance = ViewHolder.get(convertView, R.id.tv_distance);
+        TextView tv_address = ViewHolder.get(convertView, R.id.tv_address);
+
         tv_name.setText(list.get(position).name);
+        tv_distance.setText(list.get(position).distance);
+        tv_address.setText(list.get(position).address);
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -147,7 +147,7 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".shopcar.CouponActivity"
+            android:name=".shopcar.OrderCouponActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize" />
@@ -203,7 +203,7 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".my.business.BusinessListActivity"
+            android:name=".my.merchant.MerchantListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize" />
@@ -249,6 +249,12 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".my.address.ModifyAddressActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".my.manager.MyManagerActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize" />

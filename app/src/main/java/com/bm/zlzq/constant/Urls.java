@@ -12,6 +12,4 @@ public interface Urls {
     public static final String REWARDCATEGORY = "getRewardCategoryList";
 
 
-
-
 }

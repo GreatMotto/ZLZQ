@@ -8,9 +8,10 @@ import java.io.Serializable;
 public class MyOrderBean implements Serializable{
     private static final long serialVersionUID = 1L;
 
-    public String id;
-    public String name;
+    public String ordernumber;
     public String state;
+    public String name;
+    public String price;
     public String blkbtntext;
     public String orgbtntext;
 

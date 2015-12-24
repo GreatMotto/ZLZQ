@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 
 import com.bm.zlzq.R;
 import com.bm.zlzq.bean.ImageBean;
+import com.bm.zlzq.constant.Constant;
 import com.bm.zlzq.home.discount.ActivitiesActivity;
 import com.bm.zlzq.utils.ViewHolder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -299,8 +300,8 @@ public class AutomaticViewPager extends ViewPager {
                         public void onClick(View v) {
                             // 在此处添加跳转逻辑
                             Intent intent = new Intent();
-//                            intent.putExtra(Constant.ID, list.get(position % list.size()).id);
                             intent.setClass(mActivity, ActivitiesActivity.class);
+                            intent.putExtra(Constant.FLAG, 0);
                             mActivity.startActivity(intent);
                         }
                     });

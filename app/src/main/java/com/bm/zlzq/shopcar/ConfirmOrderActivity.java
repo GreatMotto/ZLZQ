@@ -128,7 +128,7 @@ public class ConfirmOrderActivity extends BaseActivity {
                 DialogUtil.showDialog(this, tv_send_way,clickInterface);
                 break;
             case R.id.rl_coupon:
-                gotoOtherActivity(CouponActivity.class);
+                gotoOtherActivity(OrderCouponActivity.class);
                 break;
             case R.id.tv_sure:
                 gotoOtherActivity(FinishOrderActivity.class);

@@ -3,6 +3,7 @@
     <color name="white">#ffffffff</color>
     <color name="white_no_select">#f9d6b8</color>
     <color name="app_black">#333333</color>
+    <color name="sh_num_black">#555555</color>
     <color name="app_theme">#f18d00</color>
     <color name="app_bg">#f2f2f2</color>
     <color name="dl_text_hint_color">#cfcfcf</color>
