@@ -29,6 +29,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * 商品详情
  * Created by wangwm on 2015/12/4.
  */
 public class QuPinDetailActivity extends BaseActivity{

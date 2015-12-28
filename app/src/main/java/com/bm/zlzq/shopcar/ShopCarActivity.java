@@ -21,6 +21,7 @@ import com.bm.zlzq.constant.Constant;
 import com.bm.zlzq.utils.ViewHolder;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +40,6 @@ public class ShopCarActivity extends BaseActivity {
     private int i, shopnum;
     private boolean isCheckAll, isEditAll, isEdit;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +55,7 @@ public class ShopCarActivity extends BaseActivity {
         rl_check_all = (RelativeLayout) findViewById(R.id.rl_check_all);
         iv_check_all = (ImageView) findViewById(R.id.iv_check_all);
         lv_shopcar = (ListView) findViewById(R.id.lv_shopcar);
-        footerview = LayoutInflater.from(this).inflate(R.layout.gwc_footview, null, false);
+        footerview = LayoutInflater.from(this).inflate(R.layout.footview_shopcar, null, false);
         lv_shopcar.addFooterView(footerview);
 
         tv_edit.setOnClickListener(this);
@@ -67,7 +67,7 @@ public class ShopCarActivity extends BaseActivity {
         shopnum = ZLZQApplication.getInstance().getSp().getIntValue(Constant.ADDNUM);
         for (int i = 0; i < shopnum - 1; i++) {
             ShopCarBean db = new ShopCarBean();
-            db.pname = "进口蓝莓125g/份鲜果浆新鲜水果";
+            db.name = "进口蓝莓125g/份鲜果浆新鲜水果";
             db.price = "3288.00";
             db.count = "1";
             db.isCheck = false;
@@ -107,15 +107,16 @@ public class ShopCarActivity extends BaseActivity {
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
-                convertView = View.inflate(context, R.layout.shpcat_item, null);
+                convertView = LayoutInflater.from(context).inflate(R.layout.shpcat_item, null);
             }
-            TextView tv_add = ViewHolder.get(convertView, R.id.tv_add);
-            TextView tv_cut = ViewHolder.get(convertView, R.id.tv_cut);
-            TextView tv_cutnum = ViewHolder.get(convertView, R.id.tv_cutnum);
             TextView tv_price = ViewHolder.get(convertView, R.id.tv_price);
             ImageView iv_check = ViewHolder.get(convertView, R.id.iv_check);
             TextView tv_name = ViewHolder.get(convertView, R.id.tv_name);
             TextView tv_num = ViewHolder.get(convertView, R.id.tv_num);
+
+            TextView tv_add = ViewHolder.get(convertView, R.id.tv_add);
+            TextView tv_cut = ViewHolder.get(convertView, R.id.tv_cut);
+            TextView tv_cutnum = ViewHolder.get(convertView, R.id.tv_cutnum);
             LinearLayout ll_add_cut_num = ViewHolder.get(convertView, R.id.ll_add_cut_num);
 
             tv_cut.setOnClickListener(clic);
@@ -145,7 +146,7 @@ public class ShopCarActivity extends BaseActivity {
             } else {
                 tv_price.setText("¥" + list.get(position).price + ".00");
             }
-            tv_name.setText(list.get(position).pname);
+            tv_name.setText(list.get(position).name);
             tv_num.setText("x" + list.get(position).count);
 //            iv_shop.setImageURI(Uri.parse(Urls.PHOTO + list.get(position).path));
 //            iv_delete.setOnClickListener(new View.OnClickListener() {
@@ -212,8 +213,8 @@ public class ShopCarActivity extends BaseActivity {
                 break;
             case R.id.tv_buy:
                 Intent intent = new Intent(this, ConfirmOrderActivity.class);
+                intent.putExtra(Constant.FLAG, 0);
                 intent.putExtra(Constant.CARLIST, (Serializable) listgoods);
-                intent.putExtra(Constant.PRICE, tv_price.getText().toString());
                 startActivity(intent);
                 break;
             default:
@@ -229,7 +230,6 @@ public class ShopCarActivity extends BaseActivity {
             switch (v.getId()) {
                 case R.id.tv_cut:
                     if (good.count.equals("1")) {
-//                        Toast.makeText(MyShopCatActivity.this, "至少为1件", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     i = Integer.parseInt(good.count);
@@ -297,12 +297,7 @@ public class ShopCarActivity extends BaseActivity {
         if (count == 0) {
             tv_price.setText("¥0.00");
         } else {
-            String dataprice = count + "";
-            if (dataprice.contains(".")) {
-                tv_price.setText("¥" + dataprice + "0");
-            } else {
-                tv_price.setText("¥" + dataprice + ".00");
-            }
+            tv_price.setText("¥" + new DecimalFormat("0.00").format(count));
         }
     }
 }

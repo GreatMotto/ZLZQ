@@ -26,6 +26,7 @@ public class Constant {
     public static final String CARLIST="carlist";//购物车列表
     public static final String PRICE="price";//总计价格
     public static final String TITLE="title";//商户名
+    public static final String RELETLIST="reletlist";//续租列表
     public static final String EMAIL="email";//email
     public static final String PASSWORD="password";//password
     public static final String COUNTRYLIST="countrylist";//存储国家列表

@@ -19,21 +19,25 @@ import com.bm.zlzq.R;
 import com.bm.zlzq.my.address.MyAddressActivity;
 import com.bm.zlzq.utils.ImageUtils;
 import com.bm.zlzq.utils.NewToast;
+import com.bm.zlzq.view.WheelDialog;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by wangwm on 2015/12/18.
  */
 public class PersonalInfoActivity extends BaseActivity {
     private RelativeLayout rl_touxiang, rl_nickname, rl_sex, rl_address;
-    private TextView tv_nickname;
+    private TextView tv_nickname,tv_sex;
     private Uri fromFile;
     private Bitmap bitmap;
     private SimpleDraweeView sdv_pic;
+    private List<String> list = new ArrayList<String>();
     private static final int RESULT_ALBUM = 0; // 相册
     private static final int RESULT_CAMERA = 1;// 相机
     private static final int CROP_PICTURE = 2;// 截取后返回
@@ -53,10 +57,12 @@ public class PersonalInfoActivity extends BaseActivity {
         rl_nickname = (RelativeLayout) findViewById(R.id.rl_nickname);
         tv_nickname = (TextView) findViewById(R.id.tv_nickname);
         rl_sex = (RelativeLayout) findViewById(R.id.rl_sex);
+        tv_sex = (TextView) findViewById(R.id.tv_sex);
         rl_address = (RelativeLayout) findViewById(R.id.rl_address);
 
         rl_touxiang.setOnClickListener(this);
         rl_nickname.setOnClickListener(this);
+        rl_sex.setOnClickListener(this);
         rl_address.setOnClickListener(this);
     }
 
@@ -106,6 +112,17 @@ public class PersonalInfoActivity extends BaseActivity {
 //                gotoOtherActivity(ModifyNicknameActivity.class);
                 Intent intent = new Intent(this, ModifyNicknameActivity.class);
                 startActivityForResult(intent, RESULT_NICKNAME);
+                break;
+            case R.id.rl_sex:
+                list.clear();
+                list.add("男");
+                list.add("女");
+                WheelDialog.getInstance().ChossDateOrNumDlg(this, "性别", tv_sex, list, new WheelDialog.GetCityIdListener() {
+                    @Override
+                    public void GetCityId(String provinceId, String cityId, String areaId) {
+
+                    }
+                });
                 break;
             case R.id.rl_address:
                 gotoOtherActivity(MyAddressActivity.class);

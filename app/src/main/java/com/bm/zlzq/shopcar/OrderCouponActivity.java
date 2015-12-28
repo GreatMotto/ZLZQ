@@ -35,7 +35,7 @@ public class OrderCouponActivity extends BaseActivity {
 
     private void initView() {
         lv_coupon = (ListView) findViewById(R.id.lv_coupon);
-        layout_footer = LayoutInflater.from(this).inflate(R.layout.yhq_footer, null);
+        layout_footer = LayoutInflater.from(this).inflate(R.layout.footview_coupon, null);
         lv_coupon.addFooterView(layout_footer);
         tv_get_coupon = (TextView) layout_footer.findViewById(R.id.tv_get_coupon);
 
@@ -52,6 +52,7 @@ public class OrderCouponActivity extends BaseActivity {
             db.enddate = "到期日期：2015-12-31";
             db.fullprice = "500";
             db.minusprice = "30";
+            db.isget = "0";
             list.add(db);
         }
 
@@ -59,6 +60,7 @@ public class OrderCouponActivity extends BaseActivity {
             CouponBean db = new CouponBean();
             db.enddate = "到期日期：2015-12-31";
             db.minusprice = "50";
+            db.isget = "0";
             list.add(db);
         }
 

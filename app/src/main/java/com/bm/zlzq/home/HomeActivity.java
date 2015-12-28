@@ -20,6 +20,7 @@ public class HomeActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private RadioButton rb_home, rb_qupin, rb_shopcar, rb_my;
     private HomeFragment homeFragment;
     private MyFragment myFragment;
+    private int from = 0;// 1-主页   2-我的
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,11 @@ public class HomeActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     @Override
     protected void onResume() {
         super.onResume();
-//        rb_home.setChecked(true);
+        if (from == 0){
+            rb_home.setChecked(true);
+        }else {
+            rb_my.setChecked(true);
+        }
     }
 
     private void initView() {
@@ -61,6 +66,7 @@ public class HomeActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         FragmentTransaction transaction = manager.beginTransaction();
         switch (checkedId) {
             case R.id.rb_home:
+                from = 0;
                 if (homeFragment == null) {
                     homeFragment = new HomeFragment();
                 }
@@ -73,6 +79,7 @@ public class HomeActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 gotoOtherActivity(ShopCarActivity.class);
                 break;
             case R.id.rb_my:
+                from = 1;
                 if (myFragment == null) {
                     myFragment = new MyFragment();
                 }

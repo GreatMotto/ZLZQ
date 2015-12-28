@@ -10,6 +10,7 @@ import android.widget.RadioGroup;
 
 import com.bm.zlzq.BaseActivity;
 import com.bm.zlzq.R;
+import com.bm.zlzq.bean.ShopCarBean;
 import com.bm.zlzq.bean.MyOrderBean;
 import com.bm.zlzq.constant.Constant;
 import com.bm.zlzq.home.search.SearchActivity;
@@ -60,38 +61,60 @@ public class MyManagerActivity extends BaseActivity {
 
         lv_order = (ListView) findViewById(R.id.lv_order);
 
-        //模拟订单数据
+        //模拟订单数据---------------------------------
         final MyOrderBean db1 = new MyOrderBean();
         db1.ordernumber = "订单号：E5212120";
         db1.state = "待领取";
-        db1.name = "进口蓝莓125g/份鲜果浆新鲜水果";
-        db1.price = "￥3288.00";
+        for (int i = 0; i < 2; i++) {
+            ShopCarBean scb = new ShopCarBean();
+            scb.name = "进口蓝莓125g/份鲜果浆新鲜水果";
+            scb.price = "3288.00";
+            scb.count = "2";
+            db1.goodslist.add(scb);
+        }
         db1.blkbtntext = "查看物流";
         db1.orgbtntext = "确认收货";
 
         final MyOrderBean db2 = new MyOrderBean();
         db2.ordernumber = "订单号：E5212120";
         db2.state = "交货完成";
-        db2.name = "进口蓝莓125g/份鲜果浆新鲜水果";
-        db2.price = "￥3288.00";
+        db1.state = "待领取";
+        for (int i = 0; i < 2; i++) {
+            ShopCarBean scb = new ShopCarBean();
+            scb.name = "进口蓝莓125g/份鲜果浆新鲜水果";
+            scb.price = "3288.00";
+            scb.count = "2";
+            db2.goodslist.add(scb);
+        }
 
         //模拟退租数据
         final MyOrderBean db3 = new MyOrderBean();
         db3.ordernumber = "订单号：E5212120";
         db3.state = "待确认";
-        db3.name = "进口蓝莓125g/份鲜果浆新鲜水果";
-        db3.price = "￥3288.00";
+        for (int i = 0; i < 2; i++) {
+            ShopCarBean scb = new ShopCarBean();
+            scb.name = "进口蓝莓125g/份鲜果浆新鲜水果";
+            scb.price = "3288.00";
+            scb.count = "2";
+            db3.goodslist.add(scb);
+        }
         db3.blkbtntext = "查看物流";
         db3.orgbtntext = "确认收货";
 
         final MyOrderBean db4 = new MyOrderBean();
         db4.ordernumber = "订单号：E5212120";
         db4.state = "退租完成";
-        db4.name = "进口蓝莓125g/份鲜果浆新鲜水果";
-        db4.price = "￥3288.00";
-
+        for (int i = 0; i < 2; i++) {
+            ShopCarBean scb = new ShopCarBean();
+            scb.name = "进口蓝莓125g/份鲜果浆新鲜水果";
+            scb.price = "3288.00";
+            scb.count = "2";
+            db4.goodslist.add(scb);
+        }
         list.add(db1);
         list.add(db2);
+        //-----------------------------------------
+
         adapter = new MyOrderAdapter(this, list, 1);
         lv_order.setAdapter(adapter);
 

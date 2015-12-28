@@ -9,6 +9,7 @@ import android.widget.RadioGroup;
 
 import com.bm.zlzq.BaseActivity;
 import com.bm.zlzq.R;
+import com.bm.zlzq.bean.ShopCarBean;
 import com.bm.zlzq.bean.MyOrderBean;
 import com.bm.zlzq.constant.Constant;
 import com.bm.zlzq.home.search.SearchActivity;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 我的订单
  * Created by wangwm on 2015/12/18.
  */
 public class MyOrderActivity extends BaseActivity {
@@ -58,10 +60,15 @@ public class MyOrderActivity extends BaseActivity {
 
         //模拟订单数据--------------------------
         final MyOrderBean db1 = new MyOrderBean();
+        for (int i = 0; i < 2; i++) {
+            ShopCarBean scb = new ShopCarBean();
+            scb.name = "进口蓝莓125g/份鲜果浆新鲜水果";
+            scb.price = "3288.00";
+            scb.count = "2";
+            db1.goodslist.add(scb);
+        }
         db1.ordernumber = "订单号：E5212120";
         db1.state = "等待买家付款";
-        db1.name = "进口蓝莓125g/份鲜果浆新鲜水果";
-        db1.price = "￥3288.00";
         db1.blkbtntext = "取消订单";
         db1.orgbtntext = "付款";
         list.add(db1);
@@ -69,8 +76,13 @@ public class MyOrderActivity extends BaseActivity {
         final MyOrderBean db2 = new MyOrderBean();
         db2.ordernumber = "订单号：E5212120";
         db2.state = "等待卖家发货";
-        db2.name = "进口蓝莓125g/份鲜果浆新鲜水果";
-        db2.price = "￥3288.00";
+        for (int i = 0; i < 2; i++) {
+            ShopCarBean scb = new ShopCarBean();
+            scb.name = "进口蓝莓125g/份鲜果浆新鲜水果";
+            scb.price = "3288.00";
+            scb.count = "2";
+            db2.goodslist.add(scb);
+        }
         db2.blkbtntext = "取消订单";
         db2.orgbtntext = "确认发货";
         list.add(db2);
@@ -78,8 +90,13 @@ public class MyOrderActivity extends BaseActivity {
         final MyOrderBean db3 = new MyOrderBean();
         db3.ordernumber = "订单号：E5212120";
         db3.state = "等待买家确认收货";
-        db3.name = "进口蓝莓125g/份鲜果浆新鲜水果";
-        db3.price = "￥3288.00";
+        for (int i = 0; i < 2; i++) {
+            ShopCarBean scb = new ShopCarBean();
+            scb.name = "进口蓝莓125g/份鲜果浆新鲜水果";
+            scb.price = "3288.00";
+            scb.count = "2";
+            db3.goodslist.add(scb);
+        }
         db3.blkbtntext = "查看物流";
         db3.orgbtntext = "确认收货";
         list.add(db3);
@@ -87,8 +104,14 @@ public class MyOrderActivity extends BaseActivity {
         final MyOrderBean db4 = new MyOrderBean();
         db4.ordernumber = "订单号：E5212120";
         db4.state = "交易结束";
-        db4.name = "进口蓝莓125g/份鲜果浆新鲜水果";
-        db4.price = "￥3288.00";
+        for (int i = 0; i < 3; i++) {
+            ShopCarBean scb = new ShopCarBean();
+            scb.name = "进口蓝莓125g/份鲜果浆新鲜水果";
+            scb.price = "3288.00";
+            scb.count = "1";
+            scb.isCheck = false;
+            db4.goodslist.add(scb);
+        }
         db4.blkbtntext = "续租";
         db4.orgbtntext = "晒单评价";
         list.add(db4);
