@@ -25,15 +25,15 @@
 
     <meta-data
         android:name="UMENG_APPKEY"
-        android:value="565d2e5ee0f55a77a0002dea" />
-    <!--<meta-data-->
-    <!--android:name="UMENG_CHANNEL"-->
-    <!--android:value="Channel ID" />-->
+        android:value="5682268fe0f55a5f95002e44" />
+    <meta-data
+        android:name="UMENG_CHANNEL"
+        android:value="Channel ID" />
 
     <application
         android:name=".ZLZQApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/app_icon_3"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -41,7 +41,7 @@
             android:name=".SplashActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <!--<intent-filter>-->
             <!--<action android:name="android.intent.action.MAIN" />-->
 
@@ -50,8 +50,12 @@
         </activity>
 
         <activity
+            android:name=".GuideActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".login.LoginActivity"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize" />
@@ -71,8 +75,7 @@
         <activity
             android:name=".login.LoginInActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustResize" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".login.RegisterActivity"
             android:screenOrientation="portrait"
@@ -276,6 +279,22 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".upload.ChoosePicActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".upload.BitmapCache"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".upload.AlbumFileActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

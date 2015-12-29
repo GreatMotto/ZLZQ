@@ -16,7 +16,8 @@ public class Constant {
     public static final String ITTFNAME = "font/FtraBkI.ttf";
     // 上次登录用户名SHAREDPREFERENCES
     public static final String SP_NAME = "name";// sp文件名
-    public static final String ISLOGIN = "islogin";// 是否登录
+    public static final String ISLOGIN = "islogin";//
+    public static final String ISOPENMAIN = "isopenmain";// 是否打开过
     public static final String FLAG = "flag";// 跳转键
     public static final String TAG = "tag";// 跳转标记
     public static final String ACCOUNTID = "accountid";// 会员ID

@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by wangwm on 2015/12/1.
  */
-public class ZLZQApplication extends Application{
+public class ZLZQApplication extends Application {
     public static ZLZQApplication instance;
     private List<Activity> acys = new LinkedList<Activity>();
     private SharedPreferencesHelper sp;
@@ -39,9 +39,7 @@ public class ZLZQApplication extends Application{
         super.onCreate();
         initImageLoader();
         Fresco.initialize(this);
-//
 //        ImageLoaderConfiguration configuration = ImageLoaderConfiguration.createDefault(this);
-//
 //        ImageLoader.getInstance().init(configuration);
     }
 

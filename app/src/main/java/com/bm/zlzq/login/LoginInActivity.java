@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.bm.zlzq.BaseActivity;
 import com.bm.zlzq.R;
+import com.bm.zlzq.ZLZQApplication;
 import com.bm.zlzq.constant.Constant;
 import com.bm.zlzq.home.HomeActivity;
 import com.bm.zlzq.utils.NewToast;
@@ -25,8 +26,9 @@ public class LoginInActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ac_login_in);
-        initTitle("登录");
+        ZLZQApplication.getInstance().addActivity(this);
         initView();
+        initTitle("登录");
     }
 
     private void initView() {

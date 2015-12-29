@@ -49,7 +49,6 @@ public class ReletActivity extends BaseActivity{
                 Intent intent = new Intent(ReletActivity.this, ConfirmOrderActivity.class);
                 intent.putExtra(Constant.FLAG, 1);
                 intent.putExtra(Constant.CARLIST, (Serializable) goodslist);
-                intent.putExtra(Constant.PRICE, "3288.00");
                 startActivity(intent);
             }
         });

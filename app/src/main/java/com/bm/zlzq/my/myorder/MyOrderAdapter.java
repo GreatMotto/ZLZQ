@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -67,6 +68,14 @@ public class MyOrderAdapter extends BaseAdapter {
         final TextView tv_orange_btn = ViewHolder.get(convertView, R.id.tv_orange_btn);
 
         nslv_goods.setAdapter(new MyGoodsAdapter(context, list.get(position).goodslist));
+        nslv_goods.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int itemPosition, long id) {
+                Intent intent = new Intent(context, OrderDetailActivity.class);
+                intent.putExtra(Constant.RELETLIST, (Serializable) list.get(position).goodslist);
+                context.startActivity(intent);
+            }
+        });
 
         if (flag == 1) {
             tv_kuaidi.setVisibility(View.GONE);
@@ -116,8 +125,17 @@ public class MyOrderAdapter extends BaseAdapter {
             public void onClick(View v) {
                 if (tv_orange_btn.getText().toString().equals("晒单评价")) {
                     Intent intent = new Intent(context, DisplayOrderActivity.class);
+                    intent.putExtra(Constant.RELETLIST, (Serializable) list.get(position).goodslist);
                     context.startActivity(intent);
                 }
+            }
+        });
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, OrderDetailActivity.class);
+                intent.putExtra(Constant.RELETLIST, (Serializable) list.get(position).goodslist);
+                context.startActivity(intent);
             }
         });
 

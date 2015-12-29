@@ -3,11 +3,14 @@ package com.bm.zlzq.home;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.bm.zlzq.BaseActivity;
 import com.bm.zlzq.R;
+import com.bm.zlzq.ZLZQApplication;
 import com.bm.zlzq.commodity.QuPinActivity;
 import com.bm.zlzq.my.MyFragment;
 import com.bm.zlzq.shopcar.ShopCarActivity;
@@ -21,12 +24,15 @@ public class HomeActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private HomeFragment homeFragment;
     private MyFragment myFragment;
     private int from = 0;// 1-主页   2-我的
+    private static long mExitTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ac_home);
         initView();
+        ZLZQApplication.getInstance().finishActivity();
+        ZLZQApplication.getInstance().addActivity(this);
     }
 
     @Override
@@ -89,5 +95,18 @@ public class HomeActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 break;
         }
         transaction.commit();
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if ((System.currentTimeMillis() - mExitTime) > 2000) {
+                Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                mExitTime = System.currentTimeMillis();
+            } else {
+                finish();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import com.bm.zlzq.BaseActivity;
 import com.bm.zlzq.R;
+import com.bm.zlzq.ZLZQApplication;
 
 /**
  * Created by wangwm on 2015/12/1.
@@ -17,6 +18,8 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ac_login);
+        ZLZQApplication.getInstance().finishActivity();
+        ZLZQApplication.getInstance().addActivity(this);
         initView();
     }
 

@@ -25,7 +25,6 @@ import java.util.Calendar;
 public class DialogUtil {
     /**
      * 配送方式
-     *
      * @param context
      */
     public static void showDialog(final Activity context, final TextView textView, final AdapterClickInterface clickInterface) {
