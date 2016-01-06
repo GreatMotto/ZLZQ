@@ -9,20 +9,24 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bm.zlzq.BaseActivity;
+import com.bm.zlzq.Http.APICallback;
+import com.bm.zlzq.Http.APIResponse;
+import com.bm.zlzq.Http.WebServiceAPI;
 import com.bm.zlzq.R;
 import com.bm.zlzq.constant.Constant;
-import com.bm.zlzq.home.HomeActivity;
 import com.bm.zlzq.utils.NewToast;
+import com.bm.zlzq.utils.ProgressUtils;
 
 /**
  * Created by wangwm on 2015/12/1.
  */
-public class RegisterActivity extends BaseActivity {
+public class RegisterActivity extends BaseActivity implements APICallback.OnResposeListener {
     private EditText et_mobile, et_verify_code, et_invite_code, et_password, et_password_again;
     private TextView tv_send, tv_register, tv_agree;
     private ImageView iv_agree;
     private RelativeLayout rl_agree;
     private boolean isAgree = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,14 +71,14 @@ public class RegisterActivity extends BaseActivity {
             NewToast.show(this, "验证码不正确", NewToast.LENGTH_LONG);
             return false;
         }
-        if (TextUtils.isEmpty(et_invite_code.getText().toString().trim())) {
-            NewToast.show(this, "请输入邀请码", NewToast.LENGTH_LONG);
-            return false;
-        }
-        if (et_invite_code.getText().toString().trim().length() < 10) {
-            NewToast.show(this, "邀请码不正确", NewToast.LENGTH_LONG);
-            return false;
-        }
+//        if (TextUtils.isEmpty(et_invite_code.getText().toString().trim())) {
+//            NewToast.show(this, "请输入邀请码", NewToast.LENGTH_LONG);
+//            return false;
+//        }
+//        if (et_invite_code.getText().toString().trim().length() < 10) {
+//            NewToast.show(this, "邀请码不正确", NewToast.LENGTH_LONG);
+//            return false;
+//        }
         if (TextUtils.isEmpty(et_password.getText().toString().trim())) {
             NewToast.show(this, "请输入密码", NewToast.LENGTH_LONG);
             return false;
@@ -99,11 +103,32 @@ public class RegisterActivity extends BaseActivity {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.tv_send:
+                //打开注册页面
+
+//                RegisterPage registerPage = new RegisterPage();
+//                registerPage.setRegisterCallback(new EventHandler() {
+//                    public void afterEvent(int event, int result, Object data) {
+//// 解析注册结果
+//                        if (result == SMSSDK.RESULT_COMPLETE) {
+//                            @SuppressWarnings("unchecked")
+//                            HashMap<String, Object> phoneMap = (HashMap<String, Object>) data;
+//                            String country = (String) phoneMap.get("country");
+//                            String phone = (String) phoneMap.get("phone");
+//
+//// 提交用户信息
+////                            registerUser(country, phone);
+//                        }
+//                    }
+//                });
+//                registerPage.show(this);
+
+
                 NewToast.show(this, "验证码已发送", NewToast.LENGTH_LONG);
                 break;
             case R.id.tv_register:
-                if (canRegister()){
-                    gotoOtherActivity(HomeActivity.class);
+                if (canRegister()) {
+                    ProgressUtils.showProgressDialog("", this);
+                    WebServiceAPI.getInstance().register(et_mobile.getText().toString().trim(), et_password.getText().toString().trim(), "", RegisterActivity.this, RegisterActivity.this);
                 }
                 break;
             case R.id.rl_agree:
@@ -131,5 +156,30 @@ public class RegisterActivity extends BaseActivity {
         et_password.clearFocus();
         et_password_again.clearFocus();
         CloseKeyboard();
+    }
+
+    @Override
+    public void OnFailureData(String error, Integer tag) {
+
+    }
+
+    @Override
+    public void OnSuccessData(APIResponse apiResponse, Integer tag) {
+        if (apiResponse.status.equals("0")) {
+            switch (tag) {
+                case 0:
+                    ProgressUtils.cancleProgressDialog();
+                    gotoOtherActivity(LoginInActivity.class);
+                    finish();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void OnErrorData(String code, Integer tag) {
+
     }
 }

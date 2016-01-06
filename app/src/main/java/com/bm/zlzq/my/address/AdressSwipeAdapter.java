@@ -2,6 +2,7 @@
 package com.bm.zlzq.my.address;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.bm.zlzq.R;
 import com.bm.zlzq.bean.AddressBean;
+import com.bm.zlzq.utils.AddressUtil;
 import com.bm.zlzq.utils.ViewHolder;
 
 import java.util.List;
@@ -47,6 +49,8 @@ public class AdressSwipeAdapter extends BaseAdapter {
         void onDelClick(View v, int position);
 
         void onEditClick(View v, int position);
+
+
     }
 
     public AdressSwipeAdapter(Context ctx, int rightWidth, List<AddressBean> list, IOnItemClickListener l) {
@@ -63,7 +67,7 @@ public class AdressSwipeAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return list.get(position);
     }
 
     @Override
@@ -89,22 +93,31 @@ public class AdressSwipeAdapter extends BaseAdapter {
         final TextView tv_default = ViewHolder.get(convertView, R.id.tv_default);
         TextView tv_edit = ViewHolder.get(convertView, R.id.tv_edit);
         TextView tv_delete = ViewHolder.get(convertView, R.id.tv_delete);
-
-
         LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
-        lp1.topMargin = 24;
+        lp1.topMargin = 20;
         item_left.setLayoutParams(lp1);
         LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(mRightWidth, LinearLayout.LayoutParams.MATCH_PARENT);
-        lp2.topMargin = 24;
+        lp2.topMargin = 20;
         item_right.setLayoutParams(lp2);
-//
-        tv_name.setText(list.get(position).name);
+        tv_name.setText(list.get(position).consignee);
         tv_mobile.setText(list.get(position).mobile);
-        tv_address.setText(list.get(position).area + list.get(position).street + list.get(position).detailaddress);
+        //根据id查到省市区
+//      String pca = AddressUtil.getCityNameById(list.get(position).provincesId, list.get(position).citysId, list.get(position).areasId);
+        String provincesId=list.get(position).provincesId;
+        String citysId=list.get(position).citysId;
+        String areasId=list.get(position).areasId;
+        Log.e("provincesId",provincesId+"...");
+        Log.e("citysId",citysId+"...");
+        Log.e("areasId",areasId+"...");
+//        Log.e("地址",AddressUtil.getCityNameById(provincesId, citysId, areasId)+"...");
+//        tv_address.setText(AddressUtil.getCityNameById("120000", "120200", "120225"));
+        tv_address.setText(list.get(position).street + list.get(position).address);
+
+
         item_right_text.setText("删除");
 
-        if (list.get(position).isDefault.equals("1")) {
+        if (list.get(position).status.equals("1")) {
             iv_default.setImageResource(R.mipmap.gwc_xz);
             tv_default.setText("默认地址");
         } else {
@@ -148,4 +161,6 @@ public class AdressSwipeAdapter extends BaseAdapter {
         });
         return convertView;
     }
+
+
 }

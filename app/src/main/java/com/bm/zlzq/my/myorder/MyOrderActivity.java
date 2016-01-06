@@ -63,7 +63,7 @@ public class MyOrderActivity extends BaseActivity {
         for (int i = 0; i < 2; i++) {
             ShopCarBean scb = new ShopCarBean();
             scb.name = "进口蓝莓125g/份鲜果浆新鲜水果";
-            scb.price = "3288.00";
+            scb.priceTwo = "3288.00";
             scb.count = "2";
             db1.goodslist.add(scb);
         }
@@ -79,12 +79,10 @@ public class MyOrderActivity extends BaseActivity {
         for (int i = 0; i < 2; i++) {
             ShopCarBean scb = new ShopCarBean();
             scb.name = "进口蓝莓125g/份鲜果浆新鲜水果";
-            scb.price = "3288.00";
+            scb.priceTwo = "3288.00";
             scb.count = "2";
             db2.goodslist.add(scb);
         }
-        db2.blkbtntext = "取消订单";
-        db2.orgbtntext = "确认发货";
         list.add(db2);
 
         final MyOrderBean db3 = new MyOrderBean();
@@ -93,7 +91,7 @@ public class MyOrderActivity extends BaseActivity {
         for (int i = 0; i < 2; i++) {
             ShopCarBean scb = new ShopCarBean();
             scb.name = "进口蓝莓125g/份鲜果浆新鲜水果";
-            scb.price = "3288.00";
+            scb.priceTwo = "3288.00";
             scb.count = "2";
             db3.goodslist.add(scb);
         }
@@ -107,7 +105,7 @@ public class MyOrderActivity extends BaseActivity {
         for (int i = 0; i < 3; i++) {
             ShopCarBean scb = new ShopCarBean();
             scb.name = "进口蓝莓125g/份鲜果浆新鲜水果";
-            scb.price = "3288.00";
+            scb.priceTwo = "3288.00";
             scb.count = "1";
             scb.isCheck = false;
             db4.goodslist.add(scb);
@@ -117,7 +115,48 @@ public class MyOrderActivity extends BaseActivity {
         list.add(db4);
         //-----------------------------------------------
 
-        adapter = new MyOrderAdapter(this, list, 0);
+        adapter = new MyOrderAdapter(this, list, 0, new MyOrderAdapter.ButtonClick() {
+            @Override
+            public void confirmClick(MyOrderBean comfirm) {
+                radiogroup.check(R.id.rb_five);
+                view_one.setVisibility(View.GONE);
+                view_two.setVisibility(View.GONE);
+                view_three.setVisibility(View.GONE);
+                view_four.setVisibility(View.GONE);
+                view_five.setVisibility(View.VISIBLE);
+                list.clear();
+                MyOrderBean db = new MyOrderBean();
+                db.ordernumber = "订单号：E5212120";
+                db.state = "交易结束";
+                db.goodslist.addAll(comfirm.goodslist);
+                db.blkbtntext = "续租";
+                db.orgbtntext = "晒单评价";
+                list.add(db);
+                list.add(db4);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void cancelClick(MyOrderBean cancel) {
+                radiogroup.check(R.id.rb_one);
+                view_one.setVisibility(View.VISIBLE);
+                view_two.setVisibility(View.GONE);
+                view_three.setVisibility(View.GONE);
+                view_four.setVisibility(View.GONE);
+                view_five.setVisibility(View.GONE);
+                list.clear();
+                MyOrderBean db = new MyOrderBean();
+                db.ordernumber = "订单号：E5212120";
+                db.state = "已取消";
+                db.goodslist.addAll(cancel.goodslist);
+                list.add(db);
+                list.add(db1);
+                list.add(db2);
+                list.add(db3);
+                list.add(db4);
+                adapter.notifyDataSetChanged();
+            }
+        });
         lv_order.setAdapter(adapter);
 
         if (flag == 0){

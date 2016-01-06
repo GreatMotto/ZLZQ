@@ -17,18 +17,26 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:22.1.1'
-    compile files('libs/umeng-analytics-v5.6.1.jar')
+    compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile project(':gestureimageview')
     compile files('libs/universal-image-loader-1.9.3.jar')
     compile project(':Animationmain')
     compile project(':Wheel_main')
     compile files('libs/zxing.jar')
-    compile 'com.facebook.fresco:fresco:0.8.1'
     compile 'com.google.code.gson:gson:2.5'
+    compile files('libs/umeng-analytics-v5.6.4.jar')
+    compile files('libs/BaiduLBS_Android.jar')
 }
+
+

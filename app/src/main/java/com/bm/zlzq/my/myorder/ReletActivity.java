@@ -32,7 +32,7 @@ public class ReletActivity extends BaseActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ac_relet);
-        list = (List<ShopCarBean>) getIntent().getSerializableExtra(Constant.RELETLIST);
+        list = (List<ShopCarBean>) getIntent().getSerializableExtra(Constant.LIST);
         initView();
         initTitle("续租申请");
     }
@@ -48,7 +48,7 @@ public class ReletActivity extends BaseActivity{
             public void onClick(View v) {
                 Intent intent = new Intent(ReletActivity.this, ConfirmOrderActivity.class);
                 intent.putExtra(Constant.FLAG, 1);
-                intent.putExtra(Constant.CARLIST, (Serializable) goodslist);
+                intent.putExtra(Constant.LIST, (Serializable) goodslist);
                 startActivity(intent);
             }
         });

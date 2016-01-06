@@ -22,11 +22,13 @@ public class OrderDetailActivity extends BaseActivity {
             tv_send_price, tv_coupon_price, tv_actual_price;
     private NoScrollListView nslv_goods;
     private List<ShopCarBean> list = new ArrayList<>();
+    private String ordernumber = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ac_order_detail);
-        list = (List<ShopCarBean>) getIntent().getSerializableExtra(Constant.RELETLIST);
+        list = (List<ShopCarBean>) getIntent().getSerializableExtra(Constant.LIST);
+        ordernumber = getIntent().getStringExtra(Constant.ORDERNUMBER);
         initView();
         initTitle("订单详情");
     }
@@ -43,6 +45,8 @@ public class OrderDetailActivity extends BaseActivity {
         tv_coupon_price = (TextView) findViewById(R.id.tv_coupon_price);
         tv_actual_price = (TextView) findViewById(R.id.tv_actual_price);
         nslv_goods = (NoScrollListView) findViewById(R.id.nslv_goods);
+
+        tv_order_number.setText(ordernumber);
         nslv_goods.setAdapter(new MyGoodsAdapter(this, list));
     }
 }

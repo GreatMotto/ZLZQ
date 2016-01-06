@@ -7,69 +7,77 @@ public class ErrorUtils {
 
     public static void showErrorMsg(Context context, String error) {
         String errorMsg = "";
-//        String[] errorMsgSplits = error.split("_");
-//        String errorMsgSplit = errorMsgSplits[0];
-//        int errorCodeInt = Integer.valueOf(error);
-//        switch (errorCodeInt) {
-//            case 0:
-//                errorMsg = "成功";
-//                break;
-//            case -1:
-//                errorMsg = "securityKey输入错误";
-//                break;
-//            case -2:
-//                errorMsg = "未知错误";
-//                break;
-//            case -17:
-//                errorMsg = "积分类型错误";
-//                break;
-//            case -18:
-//                errorMsg = "日期格式错误";
-//                break;
-//            case -10:
-//                errorMsg = "通过手机号匹配不到会员";
-//                break;
-//            case -11:
-//                errorMsg = "通过手机号匹配到多个会员";
-//                break;
-//            case -12:
-//                errorMsg = "短信发送失败";
-//                break;
-//            case -13:
-//                errorMsg = "当天发送超过2次限制";
-//                break;
-//            case -14:
-//                errorMsg="产品条形码不存在或已被注册";
-//                break;
-//            case 9:
-//                errorMsg = "手机号重复";
-//                break;
-//            case 10:
-//                errorMsg = "用户已收藏";
-//                break;
-//            case 11:
-//                errorMsg = "原密码错误";
-//                break;
-//            case 12:
-//                errorMsg = "此帐号已被禁用";
-//                break;
-//            case 13:
-//                errorMsg = "此帐号未绑定";
-//                break;
-//            case 14:
-//                errorMsg = "已签到";
-//                break;
-//            case 404:
-//                errorMsg = "Network error";
-//                break;
-//        }
+        switch (error) {
+            case "error_01":
+                errorMsg = "参数不正确";
+                break;
+            case "error_02":
+                errorMsg = "服务器异常";
+                break;
+            case "error_03":
+                errorMsg = "手机号已存在";
+                break;
+            case "error_04":
+                errorMsg = "用户名或密码错误";
+                break;
+            case "error_05":
+                errorMsg = "用户被禁用";
+                break;
+            case "error_06":
+                errorMsg = "已经收藏过";
+                break;
+            case "error_07":
+                errorMsg = "没有收藏过";
+                break;
+            case "error_08":
+                errorMsg = "没有数据";
+                break;
+            case "error_09":
+                errorMsg = "商品失效";
+                break;
+            case "error_10":
+                errorMsg = "订单不存在";
+                break;
+            case "error_11":
+                errorMsg = "已经晒单过";
+                break;
+            case "error_12":
+                errorMsg = "订单详情不属于该用户";
+                break;
+            case "error_13":
+                errorMsg = "超级管理员和系统管理员不允许登录";
+                break;
+            case "error_14":
+                errorMsg = "收获地址不存在";
+                break;
+            case "error_15":
+                errorMsg = "卡号或卡密错误";
+                break;
+            case "error_16":
+                errorMsg = "该充值卡已经使用过";
+                break;
+            case "error_17":
+                errorMsg = "旧密码错误";
+                break;
+            case "error_18":
+                errorMsg = "用户不存在";
+                break;
+            case "error_19":
+                errorMsg = "新密码和旧密码不能一致";
+                break;
+            case "error_20":
+                errorMsg = "没有数据";
+                break;
+            case "error_21":
+                errorMsg = "用户余额不足";
+                break;
+            default:
+                break;
+        }
 
         if(error.equals("404"))
         {
             errorMsg = "Network error";
-        }else
-        {
-            errorMsg = "error";
         }
         Toast.makeText(context, errorMsg, Toast.LENGTH_SHORT).show();
 

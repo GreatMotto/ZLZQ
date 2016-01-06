@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -15,14 +16,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bm.zlzq.BaseActivity;
+import com.bm.zlzq.Http.APICallback;
+import com.bm.zlzq.Http.APIResponse;
+import com.bm.zlzq.Http.Urls;
+import com.bm.zlzq.Http.WebServiceAPI;
 import com.bm.zlzq.R;
 import com.bm.zlzq.my.address.MyAddressActivity;
 import com.bm.zlzq.utils.ImageUtils;
 import com.bm.zlzq.utils.NewToast;
+import com.bm.zlzq.view.RoundImageView;
 import com.bm.zlzq.view.WheelDialog;
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,12 +40,13 @@ import java.util.List;
 /**
  * Created by wangwm on 2015/12/18.
  */
-public class PersonalInfoActivity extends BaseActivity {
+public class PersonalInfoActivity extends BaseActivity implements APICallback.OnResposeListener {
     private RelativeLayout rl_touxiang, rl_nickname, rl_sex, rl_address;
-    private TextView tv_nickname,tv_sex;
+    private TextView tv_nickname, tv_sex;
     private Uri fromFile;
     private Bitmap bitmap;
-    private SimpleDraweeView sdv_pic;
+    private RoundImageView iv_image;
+    private File head;
     private List<String> list = new ArrayList<String>();
     private static final int RESULT_ALBUM = 0; // 相册
     private static final int RESULT_CAMERA = 1;// 相机
@@ -48,22 +58,41 @@ public class PersonalInfoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ac_my_personal_info);
         initView();
+        initData();
         initTitle("个人资料");
     }
 
     private void initView() {
         rl_touxiang = (RelativeLayout) findViewById(R.id.rl_touxiang);
-        sdv_pic = (SimpleDraweeView) findViewById(R.id.sdv_pic);
+        iv_image = (RoundImageView) findViewById(R.id.iv_image);
         rl_nickname = (RelativeLayout) findViewById(R.id.rl_nickname);
         tv_nickname = (TextView) findViewById(R.id.tv_nickname);
         rl_sex = (RelativeLayout) findViewById(R.id.rl_sex);
         tv_sex = (TextView) findViewById(R.id.tv_sex);
         rl_address = (RelativeLayout) findViewById(R.id.rl_address);
 
+        Intent intent = getIntent();
+        String sex = intent.getStringExtra("sex");
+        if (sex == "0") {
+            tv_sex.setText("男");
+        }
+        if (sex == "1") {
+            tv_sex.setText("女");
+        }
+        String heads = intent.getStringExtra("head");
+        Log.e("head", intent.getStringExtra("head") + "321");
+
+        tv_nickname.setText(intent.getStringExtra("nickname"));
+        ImageLoader.getInstance().displayImage(Urls.PHOTO + heads, iv_image, getImageOptions());
+
         rl_touxiang.setOnClickListener(this);
         rl_nickname.setOnClickListener(this);
         rl_sex.setOnClickListener(this);
         rl_address.setOnClickListener(this);
+    }
+
+    private void initData() {
+
     }
 
     @Override
@@ -73,6 +102,7 @@ public class PersonalInfoActivity extends BaseActivity {
                 if (bitmap != null) {
                     Intent intent = new Intent();
                     intent.putExtra("bitmap", bitmap);
+
                     setResult(RESULT_OK, intent);
                 }
                 onBackPressed();
@@ -111,6 +141,7 @@ public class PersonalInfoActivity extends BaseActivity {
             case R.id.rl_nickname:
 //                gotoOtherActivity(ModifyNicknameActivity.class);
                 Intent intent = new Intent(this, ModifyNicknameActivity.class);
+//                intent.putExtra("nickname", tv_sex.getText());
                 startActivityForResult(intent, RESULT_NICKNAME);
                 break;
             case R.id.rl_sex:
@@ -121,11 +152,19 @@ public class PersonalInfoActivity extends BaseActivity {
                     @Override
                     public void GetCityId(String provinceId, String cityId, String areaId) {
 
+                        if (provinceId == "男") {
+                            WebServiceAPI.getInstance().updateInfo("", "0", PersonalInfoActivity.this, PersonalInfoActivity.this);
+                        }
+                        if (provinceId == "女") {
+                            WebServiceAPI.getInstance().updateInfo("", "1", PersonalInfoActivity.this, PersonalInfoActivity.this);
+                        }
+
+
                     }
                 });
                 break;
             case R.id.rl_address:
-                gotoOtherActivity(MyAddressActivity.class);
+                goto1OtherActivity(MyAddressActivity.class, 0);
                 break;
             default:
                 break;
@@ -159,42 +198,45 @@ public class PersonalInfoActivity extends BaseActivity {
                         Bundle extras = data.getExtras();
                         if (extras != null) {
                             bitmap = data.getParcelableExtra("data");
-                            sdv_pic.setImageBitmap(ImageUtils.toRoundBitmap(bitmap));
-                            // 图像保存到文件中
-//                            FileOutputStream foutput = null;
-//                            File files = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/temp");
-//                            if (!files.exists()) {
-//                                files.mkdirs();
-//                            }
-//                            File mRecVedioPath = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/temp/", "cropPicture.jpg");
-//                            if (mRecVedioPath.exists()) {
-//                                mRecVedioPath.delete();
-//                            }
+                            iv_image.setImageBitmap(ImageUtils.toRoundBitmap(bitmap));
+
+                            //图像保存到文件中
+                            FileOutputStream foutput = null;
+                            File files = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/temp");
+                            if (!files.exists()) {
+                                files.mkdirs();
+                            }
+                            File mRecVedioPath = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/temp/", "cropPicture.jpg");
+                            if (mRecVedioPath.exists()) {
+                                mRecVedioPath.delete();
+                            }
 //                            Log.e("ssss", mRecVedioPath.toString());
-//                            head = mRecVedioPath;
-//                            try {
-//                                foutput = new FileOutputStream(mRecVedioPath);
-//                                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, foutput);
-//                                foutput.flush();
-//                                foutput.close();
+                            head = mRecVedioPath;
+                            try {
+                                foutput = new FileOutputStream(mRecVedioPath);
+                                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, foutput);
+                                foutput.flush();
+                                foutput.close();
 //                                Log.e("bmap", bitmap.toString());
-//                            } catch (FileNotFoundException e) {
-//                                e.printStackTrace();
-//                            } catch (IOException e) {
-//                                e.printStackTrace();
-//                            } finally {
-//                                if (null != foutput) {
-//                                    try {
-//                                        foutput.flush();
-//                                        foutput.close();
-//                                    } catch (IOException e) {
-//                                        e.printStackTrace();
-//                                    }
-//                                }
-//                            }
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            } finally {
+                                if (null != foutput) {
+                                    try {
+                                        foutput.flush();
+                                        foutput.close();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
                         }
                     }
-                    // 此处请求上传头像借口
+                    // 此处请求上传头像接口
+                    WebServiceAPI.getInstance().updateHead(head, PersonalInfoActivity.this, PersonalInfoActivity.this);
+
                     break;
                 default:
                     break;
@@ -239,5 +281,27 @@ public class PersonalInfoActivity extends BaseActivity {
         intent.putExtra("outputY", 150);
         intent.putExtra("return-data", true);
         startActivityForResult(intent, CROP_PICTURE);
+    }
+
+    @Override
+    public void OnFailureData(String error, Integer tag) {
+        NewToast.show(this, "网络不好,请稍后再试!", NewToast.LENGTH_LONG);
+    }
+
+    @Override
+    public void OnSuccessData(APIResponse apiResponse, Integer tag) {
+        if (tag == 0) {
+//            WebServiceAPI.getInstance().updateInfo(tv_nickname.getText().toString().trim(), "", PersonalInfoActivity.this, PersonalInfoActivity.this);
+            NewToast.show(this, "修改成功!", NewToast.LENGTH_LONG);
+        }
+        if (tag == 1) {
+//            WebServiceAPI.getInstance().updateHead(head, PersonalInfoActivity.this, PersonalInfoActivity.this);
+            NewToast.show(this, "头像保存成功!", NewToast.LENGTH_LONG);
+        }
+    }
+
+    @Override
+    public void OnErrorData(String code, Integer tag) {
+
     }
 }

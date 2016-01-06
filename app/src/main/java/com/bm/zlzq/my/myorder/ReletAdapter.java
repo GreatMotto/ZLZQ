@@ -68,7 +68,7 @@ public class ReletAdapter extends BaseAdapter {
         view_line.setVisibility(View.VISIBLE);
 
         tv_name.setText(list.get(position).name);
-        tv_price.setText("￥" + list.get(position).price);
+        tv_price.setText("￥" + list.get(position).priceTwo);
         tv_num.setText("x" + list.get(position).count);
         iv_check.setOnClickListener(new View.OnClickListener() {
             @Override

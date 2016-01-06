@@ -68,7 +68,7 @@ public class MyManagerActivity extends BaseActivity {
         for (int i = 0; i < 2; i++) {
             ShopCarBean scb = new ShopCarBean();
             scb.name = "进口蓝莓125g/份鲜果浆新鲜水果";
-            scb.price = "3288.00";
+            scb.priceTwo = "3288.00";
             scb.count = "2";
             db1.goodslist.add(scb);
         }
@@ -82,7 +82,7 @@ public class MyManagerActivity extends BaseActivity {
         for (int i = 0; i < 2; i++) {
             ShopCarBean scb = new ShopCarBean();
             scb.name = "进口蓝莓125g/份鲜果浆新鲜水果";
-            scb.price = "3288.00";
+            scb.priceTwo = "3288.00";
             scb.count = "2";
             db2.goodslist.add(scb);
         }
@@ -94,7 +94,7 @@ public class MyManagerActivity extends BaseActivity {
         for (int i = 0; i < 2; i++) {
             ShopCarBean scb = new ShopCarBean();
             scb.name = "进口蓝莓125g/份鲜果浆新鲜水果";
-            scb.price = "3288.00";
+            scb.priceTwo= "3288.00";
             scb.count = "2";
             db3.goodslist.add(scb);
         }
@@ -107,7 +107,7 @@ public class MyManagerActivity extends BaseActivity {
         for (int i = 0; i < 2; i++) {
             ShopCarBean scb = new ShopCarBean();
             scb.name = "进口蓝莓125g/份鲜果浆新鲜水果";
-            scb.price = "3288.00";
+            scb.priceTwo = "3288.00";
             scb.count = "2";
             db4.goodslist.add(scb);
         }
@@ -115,7 +115,17 @@ public class MyManagerActivity extends BaseActivity {
         list.add(db2);
         //-----------------------------------------
 
-        adapter = new MyOrderAdapter(this, list, 1);
+        adapter = new MyOrderAdapter(this, list, 1, new MyOrderAdapter.ButtonClick() {
+            @Override
+            public void confirmClick(MyOrderBean comfirm) {
+
+            }
+
+            @Override
+            public void cancelClick(MyOrderBean cancel) {
+
+            }
+        });
         lv_order.setAdapter(adapter);
 
         radiogroup.check(R.id.rb_one);

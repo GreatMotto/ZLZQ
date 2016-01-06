@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Paint;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.bm.zlzq.R;
 import com.bm.zlzq.bean.AreaBean;
 import com.bm.zlzq.bean.CityBean;
+import com.bm.zlzq.bean.GuigeBean;
 import com.bm.zlzq.bean.ProvinceBean;
 import com.bm.zlzq.utils.AddressUtil;
 
@@ -35,8 +37,9 @@ public class WheelDialog {
     private Dialog alertDialog;
     private String province = "", city = "", area = "";
     public static final String ENCODING = "UTF-8";
-    public String item = "", provinceId, cityId, areaId;
+    public String item = "", guigeItem = "", provinceId, cityId, areaId;
     private AbstractWheel wv_province, wv_city, wv_area;
+
     private WheelDialog() {
 
     }
@@ -117,7 +120,7 @@ public class WheelDialog {
                     wv_area.setViewAdapter(new IdentifyAdapter(context, null, list.get(newValue).cityList.get(0).areaList, false, false));
                     wv_city.setCurrentItem(0);
                     wv_area.setCurrentItem(0);
-                }else {
+                } else {
                     wv_city.setVisibility(View.GONE);
                     wv_area.setVisibility(View.GONE);
                     city = "";
@@ -232,6 +235,94 @@ public class WheelDialog {
         });
     }
 
+    private List<GuigeBean> guigeList = new ArrayList<GuigeBean>();
+
+    public String getQuality(String flag) {
+        String result = "";
+        if (flag.equals("0")) {
+            result = "全新";
+        } else if (flag.equals("1")) {
+            result = "九成新";
+        } else if (flag.equals("2")) {
+            result = "八成新";
+        } else if (flag.equals("3")) {
+            result = "七成新";
+        } else if (flag.equals("4")) {
+            result = "七成以下";
+        }
+        return result;
+    }
+
+    /**
+     * 规格弹出对话框
+     *
+     * @param context
+     * @param textView
+     * @param list
+     * @param flag     0买  1租
+     * @param listener
+     */
+    public void SelectGuigeDialog(final Activity context, final TextView textView, final List<GuigeBean> list, int flag,
+                                  final GetCityIdListener listener) {
+        guigeList.clear();
+        showDialog(context);
+        alertDialog.getWindow().setContentView(R.layout.dlg_choose_guige);
+        final TextView tv_price = (TextView) alertDialog.getWindow().findViewById(R.id.tv_price);
+        final TextView tv_price_old = (TextView) alertDialog.getWindow().findViewById(R.id.tv_price_old);
+        final TextView tv_yajin = (TextView) alertDialog.getWindow().findViewById(R.id.tv_yajin);
+        final TextView tv_stock = (TextView) alertDialog.getWindow().findViewById(R.id.tv_stock);
+        final TextView tv_quality = (TextView) alertDialog.getWindow().findViewById(R.id.tv_quality);
+        TextView tv_sure = (TextView) alertDialog.getWindow().findViewById(R.id.tv_sure);
+        if (flag == 0) {
+            tv_price_old.setVisibility(View.VISIBLE);
+            tv_yajin.setVisibility(View.GONE);
+        } else {
+            tv_price_old.setVisibility(View.GONE);
+            tv_yajin.setVisibility(View.VISIBLE);
+        }
+        guigeList.addAll(list);
+        guigeItem = list.get(0).name;
+        tv_price.setText("￥" + list.get(0).price_two);
+        tv_price_old.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        tv_price_old.setText("￥" + list.get(0).price_one);
+        tv_yajin.setText("押金:" + list.get(0).price_two + "元");
+        tv_stock.setText("库存" + list.get(0).stock + "件");
+        tv_quality.setText("新旧程度:" + getQuality(list.get(0).quality));
+        final AbstractWheel wv_view = (AbstractWheel) alertDialog.findViewById(R.id.wv_view);
+        wv_view.setVisibleItems(3);
+        GuigeAdapetr guigeAdapetr = new GuigeAdapetr(context, guigeList);
+        wv_view.setViewAdapter(guigeAdapetr);
+        wv_view.addChangingListener(new OnWheelChangedListener() {
+
+            @Override
+            public void onChanged(AbstractWheel wheel, int oldValue, int newValue) {
+                // TODO Auto-generated method stub
+                guigeItem = guigeList.get(newValue).name;
+                tv_price.setText("￥" + guigeList.get(newValue).price_two);
+                tv_price_old.setText("￥" + list.get(newValue).price_one);
+                tv_yajin.setText("押金:" + list.get(newValue).price_two + "元");
+                tv_stock.setText("库存" + guigeList.get(newValue).stock + "件");
+                tv_quality.setText("新旧程度:" + getQuality(guigeList.get(newValue).quality));
+            }
+        });
+//        tv_cancel.setOnClickListener(new OnClickListener() {
+//
+//            @Override
+//            public void onClick(View view) {
+//                alertDialog.cancel();
+//            }
+//        });
+        tv_sure.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                textView.setText(guigeItem);
+                listener.GetCityId(guigeItem, "", "");
+                alertDialog.cancel();
+            }
+        });
+    }
+
     /**
      * 类型选择弹出框的适配器
      */
@@ -319,8 +410,33 @@ public class WheelDialog {
 
     }
 
-    public interface GetCityIdListener {
+    private class GuigeAdapetr extends AbstractWheelTextAdapter {
+        List<GuigeBean> lists;
 
+        protected GuigeAdapetr(Context context, List<GuigeBean> lists) {
+            super(context, R.layout.wheel_item, DEFAULT_TEXT_COLOR);
+            this.lists = lists;
+            setItemTextResource(R.id.tv_identify_item);
+        }
+
+        @Override
+        protected CharSequence getItemText(int index) {
+            return lists.get(index).name;
+        }
+
+        @Override
+        public int getItemsCount() {
+            return lists.size();
+        }
+
+        @Override
+        public int getItemResource() {
+
+            return super.getItemResource();
+        }
+    }
+
+    public interface GetCityIdListener {
         void GetCityId(String provinceId, String cityId, String areaId);
     }
 

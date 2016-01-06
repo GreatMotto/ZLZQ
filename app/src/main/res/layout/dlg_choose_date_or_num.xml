@@ -30,6 +30,11 @@
             android:textColor="@color/qp_item_num"
             android:textSize="@dimen/big_text_size" />
 
+
+
+
+
+
     </RelativeLayout>
 
     <LinearLayout

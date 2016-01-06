@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Display;
@@ -17,8 +18,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bm.zlzq.Http.Urls;
 import com.bm.zlzq.bean.ImageBean;
 import com.bm.zlzq.constant.Constant;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
@@ -34,6 +38,7 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
     private TextView tv_content;
     private ProgressDialog pd;
     private String str;
+    private DisplayImageOptions options;
     public Dialog alertDialog;
 
     @Override
@@ -91,6 +96,18 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
 //        overridePendingTransition(R.anim.in_from_left, R.anim.out_to_right);
     }
 
+    public DisplayImageOptions getImageOptions(){
+        options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.mipmap.ic_launcher)
+                .showImageForEmptyUri(R.mipmap.ic_launcher)
+                .showImageOnFail(R.mipmap.ic_launcher)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .build();
+        return options;
+    }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -169,6 +186,21 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
         for (int i = 0; i < size; i++) {
             bean = new ImageBean();
             bean.path = strs[i];
+            list.add(bean);
+        }
+        return list;
+    }
+
+    public List<ImageBean> getImageBean(List<ImageBean> strs, int size) {
+        List<ImageBean> list = new ArrayList<>();
+        if (size > strs.size()) {
+            size = strs.size();
+        }
+        ImageBean bean;
+        for (int i = 0; i < size; i++) {
+            bean = new ImageBean();
+            bean.path = Urls.PHOTO + strs.get(i).path;
+            bean.id = strs.get(i).id;
             list.add(bean);
         }
         return list;

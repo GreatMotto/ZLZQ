@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/titlebar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/time" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="请在你预约的时间内归还租品"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:paddingLeft="@dimen/margin"
+        android:paddingRight="@dimen/margin">
+
+        <TextView
+            android:id="@+id/tv_visit_chose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="退还商户选择"
+            android:textColor="@color/app_black"
+            android:textSize="@dimen/big_text_size" />
+
+        <TextView
+            android:id="@+id/et_visit_chose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_toRightOf="@+id/tv_visit_chose"
+            android:background="@null"
+            android:hint="请选择商户"
+            android:textColor="@color/app_black"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/normal_text_size" />
+
+        <ImageView
+            android:id="@+id/img_sj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_toLeftOf="@+id/img_search"
+            android:padding="@dimen/margin"
+            android:src="@mipmap/jt_01" />
+
+        <ImageView
+            android:id="@+id/img_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/sc" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@mipmap/hm_line" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:paddingBottom="@dimen/double_margin"
+        android:paddingLeft="@dimen/margin"
+        android:paddingRight="@dimen/margin"
+        android:paddingTop="@dimen/double_margin">
+
+        <TextView
+            android:id="@+id/tv_visit_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="商户地址"
+            android:textColor="@color/app_black"
+            android:textSize="@dimen/big_text_size" />
+
+        <EditText
+            android:id="@+id/et_visit_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_toRightOf="@+id/tv_visit_address"
+            android:background="@null"
+            android:hint="请输入收货地址"
+            android:textColor="@color/app_black"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/normal_text_size" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@mipmap/hm_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@color/app_bg">
+
+        <TextView
+            android:id="@+id/tv_sure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/double_margin"
+            android:layout_marginRight="@dimen/double_margin"
+            android:background="@mipmap/dl_btn"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="@color/white"
+            android:textSize="@dimen/big_text_size" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

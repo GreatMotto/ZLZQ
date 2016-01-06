@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.bm.zlzq.BaseActivity;
 import com.bm.zlzq.R;
-import com.bm.zlzq.bean.MerchantBean;
+import com.bm.zlzq.bean.MerchantListBean;
 import com.bm.zlzq.home.search.SearchActivity;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class MerchantChooseActivity extends BaseActivity{
     private ListView lv_merchant;
     private ImageView iv_search;
     private MerchantChooseAdapter adapter;
-    private List<MerchantBean> list = new ArrayList<>();
+    private List<MerchantListBean> list = new ArrayList<>();
     public static String shopName = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,7 @@ public class MerchantChooseActivity extends BaseActivity{
 
         //模拟商户数据
         for (int i = 0; i < 10; i++) {
-            MerchantBean db = new MerchantBean();
+            MerchantListBean db = new MerchantListBean();
             db.name = "宝隆便利店 " + i;
             db.distance = "23km";
             db.address = "地址:徐州市中山南路169号";

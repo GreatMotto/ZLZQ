@@ -9,6 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ import java.util.Calendar;
 public class DialogUtil {
     /**
      * 配送方式
+     *
      * @param context
      */
     public static void showDialog(final Activity context, final TextView textView, final AdapterClickInterface clickInterface) {
@@ -287,12 +289,12 @@ public class DialogUtil {
                     ca.set(year, monthOfYear, dayOfMonth);
                     if (ca.after(ca1)) {
                         datePicker.init(yearaft3, monthaft3, dayaft3, this);
-                    }else if (ca.before(ca2)){
+                    } else if (ca.before(ca2)) {
                         datePicker.init(fyear, fmonth, fday, this);
                     }
                 }
             });
-        }else {// 限制送货时间
+        } else {// 限制送货时间
             final Calendar ca1 = Calendar.getInstance();
             final Calendar ca = Calendar.getInstance();
             final int fyear = ca1.get(Calendar.YEAR);
@@ -303,7 +305,7 @@ public class DialogUtil {
                 @Override
                 public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                     ca.set(year, monthOfYear, dayOfMonth);
-                    if (ca.before(ca1)){
+                    if (ca.before(ca1)) {
                         datePicker.init(fyear, fmonth, fday, this);
                     }
                 }
@@ -349,5 +351,94 @@ public class DialogUtil {
                 dialog.cancel();
             }
         });
+
+    }
+
+    /**
+     * 支付对话框
+     *
+     * @param context
+     * @param textView //
+     */
+    public static void shoePayDialog(Activity context, final TextView textView, final TextView View) {
+        final ImageView zfb, weixin, czk;
+        final Dialog dialog = new Dialog(context, R.style.MyDialogStyle);
+        Window window = dialog.getWindow();
+        window.setGravity(Gravity.BOTTOM);
+        window.setWindowAnimations(R.style.dlganim);
+        window.setContentView(R.layout.dialog_account_message);
+        WindowManager manager = context.getWindowManager();
+        Display display = manager.getDefaultDisplay();
+        int width = display.getWidth();
+        int height = display.getHeight();
+        window.setLayout(width, height * 2 / 5);
+        dialog.show();
+        LinearLayout l_zfb = (LinearLayout) window.findViewById(R.id.ll_zfb);
+        LinearLayout l_weixin = (LinearLayout) window.findViewById(R.id.ll_weixin);
+        LinearLayout l_czk = (LinearLayout) window.findViewById(R.id.ll_czk);
+
+        TextView tv_sure = (TextView) window.findViewById(R.id.tv_sure);
+        TextView tv_cancel = (TextView) window.findViewById(R.id.tv_cancel);
+        //支付宝
+        zfb = (ImageView) window.findViewById(R.id.img_zfb);
+        //微信
+        weixin = (ImageView) window.findViewById(R.id.img_weixin);
+        //充值卡
+        czk = (ImageView) window.findViewById(R.id.img_czk);
+
+        // 支付宝
+        l_zfb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                zfb.setImageResource(R.mipmap.gwc_xz);
+                weixin.setImageResource(R.mipmap.gwc_wxz);
+                czk.setImageResource(R.mipmap.gwc_wxz);
+                textView.setText("退还支付宝");
+                View.setText("支付宝账号");
+            }
+
+        });
+        // 微信
+        l_weixin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zfb.setImageResource(R.mipmap.gwc_wxz);
+                weixin.setImageResource(R.mipmap.gwc_xz);
+                czk.setImageResource(R.mipmap.gwc_wxz);
+                textView.setText("退还微信");
+                View.setText("微信账号");
+            }
+
+        });
+        // 充值卡
+        l_czk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                zfb.setImageResource(R.mipmap.gwc_wxz);
+                weixin.setImageResource(R.mipmap.gwc_wxz);
+                czk.setImageResource(R.mipmap.gwc_xz);
+                textView.setText("退还充值卡");
+                View.setText("购物卡账号");
+            }
+
+        });
+        // 取消
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialog.cancel();
+            }
+        });
+        // 确定
+        tv_sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+
     }
 }

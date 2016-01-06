@@ -11,7 +11,7 @@
         android:padding="@dimen/margin">
 
         <TextView
-            android:id="@+id/tv_name"
+            android:id="@+id/tv_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Queenie"
@@ -19,7 +19,7 @@
             android:textSize="@dimen/normal_text_size" />
 
         <TextView
-            android:id="@+id/tv_content"
+            android:id="@+id/tv_item_content_shaidan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="东西还可以，快递速度很快，现在在使用中，很方便，不用特地买，健康又环保"

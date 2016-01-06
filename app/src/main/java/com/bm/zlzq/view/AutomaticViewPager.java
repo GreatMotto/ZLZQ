@@ -3,7 +3,6 @@ package com.bm.zlzq.view;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.PointF;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
@@ -17,12 +16,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.bm.zlzq.BaseActivity;
 import com.bm.zlzq.R;
 import com.bm.zlzq.bean.ImageBean;
 import com.bm.zlzq.constant.Constant;
 import com.bm.zlzq.home.discount.ActivitiesActivity;
 import com.bm.zlzq.utils.ViewHolder;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
@@ -33,7 +32,6 @@ import java.util.TimerTask;
  * 广告模块图片滚动
  */
 public class AutomaticViewPager extends ViewPager {
-
     Activity mActivity; // 上下文
     // List<NetworkImageView> mListViews; // 图片组
     int mScrollTime = 0;
@@ -45,8 +43,8 @@ public class AutomaticViewPager extends ViewPager {
     PointF curP = new PointF();
     private MyPagerAdapter adapter = new MyPagerAdapter();
     float radio;
-    private String clickFlag="";//轮播图点击标记，空：默认轮播图，"0"：缩放,"1"：进入详情
-    private String scaleFlag="";//缩放标记
+    private String clickFlag = "";//轮播图点击标记，空：默认轮播图，"0"：缩放,"1"：进入详情
+    private String scaleFlag = "";//缩放标记
 
     public AutomaticViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -77,8 +75,8 @@ public class AutomaticViewPager extends ViewPager {
         setOvalLayout(ovalLayout, ovalLayoutId, ovalLayoutItemId, focusedId, normalId);
         this.setAdapter(adapter);// 设置适配器
         //设置ViewPager的默认项, 设置为总数的1000倍，实现可以往右滑动的假象
-        int count = (this.list!=null&&this.list.size()>1)?this.list.size():0;
-        if(count>1) {
+        int count = (this.list != null && this.list.size() > 1) ? this.list.size() : 0;
+        if (count > 1) {
             this.setCurrentItem(count * 1000);
         }
 
@@ -92,7 +90,7 @@ public class AutomaticViewPager extends ViewPager {
 
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
-                    switch (event.getAction()){
+                    switch (event.getAction()) {
                         case MotionEvent.ACTION_CANCEL:
                             startTimer();
                             break;
@@ -124,14 +122,12 @@ public class AutomaticViewPager extends ViewPager {
         }
     }
 
-    public void setClickFlag(String clickFlag)
-    {
-        this.clickFlag=clickFlag;
+    public void setClickFlag(String clickFlag) {
+        this.clickFlag = clickFlag;
     }
 
-    public void setscaleFlag(String scaleFlag)
-    {
-        this.scaleFlag=clickFlag;
+    public void setscaleFlag(String scaleFlag) {
+        this.scaleFlag = clickFlag;
     }
 
     // els  // list.clear();
@@ -163,14 +159,16 @@ public class AutomaticViewPager extends ViewPager {
 
                 @Override
                 public void onPageSelected(int i) {
-                    curIndex = i % list.size();
-                    // 取消圆点选中
-                    ovalLayout.getChildAt(oldIndex).findViewById(ovalLayoutItemId)
-                            .setBackgroundResource(normalId);
-                    // 圆点选中
-                    ovalLayout.getChildAt(curIndex).findViewById(ovalLayoutItemId)
-                            .setBackgroundResource(focusedId);
-                    oldIndex = curIndex;
+                    if (list.size() > 0) {
+                        curIndex = i % list.size();
+                        // 取消圆点选中
+                        ovalLayout.getChildAt(oldIndex).findViewById(ovalLayoutItemId)
+                                .setBackgroundResource(normalId);
+                        // 圆点选中
+                        ovalLayout.getChildAt(curIndex).findViewById(ovalLayoutItemId)
+                                .setBackgroundResource(focusedId);
+                        oldIndex = curIndex;
+                    }
                 }
 
                 @Override
@@ -261,40 +259,34 @@ public class AutomaticViewPager extends ViewPager {
 
             ImageView iv_image = ViewHolder.get(convertView, R.id.iv_image);
 
-            DisplayImageOptions options = new DisplayImageOptions.Builder()
-                    .cacheInMemory(true)
-                    .bitmapConfig(Bitmap.Config.RGB_565)
-                    .build();
             if (list.size() != 0) {
-                float ratio=0,widthI=0,heightI=0;
-                try{
-                    String width=  list.get(position % list.size()).width;
-                    String height=  list.get(position % list.size()).height;
-                    widthI= Integer.parseInt(width);
-                    heightI= Integer.parseInt(height);
-                    ratio = widthI/heightI;
-                }catch (Exception ex){}
-                if(widthI>=1000||ratio>2){
+                float ratio = 0, widthI = 0, heightI = 0;
+                try {
+                    String width = list.get(position % list.size()).width;
+                    String height = list.get(position % list.size()).height;
+                    widthI = Integer.parseInt(width);
+                    heightI = Integer.parseInt(height);
+                    ratio = widthI / heightI;
+                } catch (Exception ex) {
+                }
+                if (widthI >= 1000 || ratio > 2) {
+                    iv_image.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                } else if ((widthI < 500 && widthI > 0) || (ratio >= 0.5 && ratio <= 2)) {
+                    iv_image.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                } else {
                     iv_image.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 }
-                else if((widthI<500&&widthI>0)||(ratio>=0.5 &&ratio<=2)){
-                    iv_image.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                }
-                else{
-                    iv_image.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                }
-                ImageLoader.getInstance().displayImage(list.get(position % list.size()).path, iv_image, options);
+                ImageLoader.getInstance().displayImage(list.get(position % list.size()).path, iv_image, ((BaseActivity) mActivity).getImageOptions());
 
-                if("0".equals(clickFlag)) {
+                if ("0".equals(clickFlag)) {
                     iv_image.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            ViewPagerDialog dlg = new ViewPagerDialog(mActivity, list,position % list.size());
+                            ViewPagerDialog dlg = new ViewPagerDialog(mActivity, list, position % list.size());
                             dlg.showViewPagerDialog();
                         }
                     });
-                }
-                else if("1".equals(clickFlag)){
+                } else if ("1".equals(clickFlag)) {
                     iv_image.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -302,18 +294,13 @@ public class AutomaticViewPager extends ViewPager {
                             Intent intent = new Intent();
                             intent.setClass(mActivity, ActivitiesActivity.class);
                             intent.putExtra(Constant.FLAG, 0);
+                            intent.putExtra(Constant.ID, list.get(position % list.size()).id);
                             mActivity.startActivity(intent);
                         }
                     });
                 }
             }
 
-
-//            SimpleDraweeView sdv = ViewHolder.get(convertView, R.id.my_image_view);
-//            sdv.setAspectRatio(radio);
-//            if(list.size() != 0) {
-//                sdv.setImageURI(Uri.parse(list.get(position % list.size()).path));
-//            }
             container.addView(convertView);
             return convertView;
         }
@@ -339,10 +326,8 @@ public class AutomaticViewPager extends ViewPager {
         @Override
         public void destroyItem(View arg0, int arg1, Object arg2) {
             ((ViewPager) arg0).removeView((View) arg2);
-            //((ViewPager)arg0).removeView(mImageViews[position % count]);
         }
     }
-
 
 
 }

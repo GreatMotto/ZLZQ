@@ -103,7 +103,7 @@ public class HomeActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
                 mExitTime = System.currentTimeMillis();
             } else {
-                finish();
+                ZLZQApplication.getInstance().exit();
             }
             return true;
         }

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.bm.zlzq.R;
 import com.bm.zlzq.bean.MyOrderBean;
 import com.bm.zlzq.constant.Constant;
+import com.bm.zlzq.shopcar.ConfirmOrderActivity;
 import com.bm.zlzq.utils.ViewHolder;
 import com.bm.zlzq.view.NoScrollListView;
 
@@ -28,12 +29,14 @@ import java.util.List;
 public class MyOrderAdapter extends BaseAdapter {
     private Context context;
     private List<MyOrderBean> list;
+    private ButtonClick buttonClick;
     private int flag = 0;// 0-我的订单  1-管理员订单
 
-    public MyOrderAdapter(Context context, List<MyOrderBean> list, int flag) {
+    public MyOrderAdapter(Context context, List<MyOrderBean> list, int flag, ButtonClick buttonClick) {
         this.context = context;
         this.list = list;
         this.flag = flag;
+        this.buttonClick = buttonClick;
     }
 
 
@@ -72,7 +75,8 @@ public class MyOrderAdapter extends BaseAdapter {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int itemPosition, long id) {
                 Intent intent = new Intent(context, OrderDetailActivity.class);
-                intent.putExtra(Constant.RELETLIST, (Serializable) list.get(position).goodslist);
+                intent.putExtra(Constant.ORDERNUMBER, list.get(position).ordernumber);
+                intent.putExtra(Constant.LIST, (Serializable) list.get(position).goodslist);
                 context.startActivity(intent);
             }
         });
@@ -96,7 +100,7 @@ public class MyOrderAdapter extends BaseAdapter {
         float totalPrice = 0;
         for (int i = 0; i < list.get(position).goodslist.size(); i++) {
             int count = Integer.parseInt(list.get(position).goodslist.get(i).count);
-            float price = Float.parseFloat(list.get(position).goodslist.get(i).price);
+            float price = Float.parseFloat(list.get(position).goodslist.get(i).priceTwo);
             totalNum += count;
             totalPrice += count * price;
         }
@@ -113,9 +117,15 @@ public class MyOrderAdapter extends BaseAdapter {
         tv_black_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (tv_black_btn.getText().toString().equals("取消订单")) {
+                    buttonClick.cancelClick(list.get(position));
+                }
+                if (tv_black_btn.getText().toString().equals("查看物流")) {
+
+                }
                 if (tv_black_btn.getText().toString().equals("续租")) {
                     Intent intent = new Intent(context, ReletActivity.class);
-                    intent.putExtra(Constant.RELETLIST, (Serializable) list.get(position).goodslist);
+                    intent.putExtra(Constant.LIST, (Serializable) list.get(position).goodslist);
                     context.startActivity(intent);
                 }
             }
@@ -123,9 +133,18 @@ public class MyOrderAdapter extends BaseAdapter {
         tv_orange_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (tv_orange_btn.getText().toString().equals("付款")) {
+                    Intent intent = new Intent(context, ConfirmOrderActivity.class);
+                    intent.putExtra(Constant.FLAG, 2);
+                    intent.putExtra(Constant.LIST, (Serializable) list.get(position).goodslist);
+                    context.startActivity(intent);
+                }
+                if (tv_orange_btn.getText().toString().equals("确认收货")) {
+                    buttonClick.confirmClick(list.get(position));
+                }
                 if (tv_orange_btn.getText().toString().equals("晒单评价")) {
                     Intent intent = new Intent(context, DisplayOrderActivity.class);
-                    intent.putExtra(Constant.RELETLIST, (Serializable) list.get(position).goodslist);
+                    intent.putExtra(Constant.LIST, (Serializable) list.get(position).goodslist);
                     context.startActivity(intent);
                 }
             }
@@ -134,11 +153,17 @@ public class MyOrderAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, OrderDetailActivity.class);
-                intent.putExtra(Constant.RELETLIST, (Serializable) list.get(position).goodslist);
+                intent.putExtra(Constant.ORDERNUMBER, list.get(position).ordernumber);
+                intent.putExtra(Constant.LIST, (Serializable) list.get(position).goodslist);
                 context.startActivity(intent);
             }
         });
 
         return convertView;
+    }
+
+    public interface ButtonClick{
+        void confirmClick(MyOrderBean comfirm);
+        void cancelClick(MyOrderBean cancel);
     }
 }

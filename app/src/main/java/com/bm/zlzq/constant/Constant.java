@@ -9,31 +9,26 @@ public class Constant {
     public final static String CACHE_IMAGE_PATH = "/zlzq/cache";// 缓存图片的路径
     public final static String CRASH_ERROR_FILE_PATH = "/zlzq/crash/";// 保存报错信息文件的路径
     public final static String CRASH_PIC_PATH = "/zlzq/pic/";// 保存上传图片的路径
-
     public final static String UPLOAD_PICTURE_PATH = "/zlzq/upload/";// 保存着上传图片的路径
 
-    public static final String TTFNAME="font/FtraBk.ttf";
-    public static final String ITTFNAME = "font/FtraBkI.ttf";
     // 上次登录用户名SHAREDPREFERENCES
     public static final String SP_NAME = "name";// sp文件名
     public static final String ISLOGIN = "islogin";//
     public static final String ISOPENMAIN = "isopenmain";// 是否打开过
     public static final String FLAG = "flag";// 跳转键
     public static final String TAG = "tag";// 跳转标记
-    public static final String ACCOUNTID = "accountid";// 会员ID
-    public static final String PHONE="phone";//登录手机号
-    public static final String HISTORY="history";//搜索历史
-    public static final String ADDNUM = "addnum";//
-    public static final String CARLIST="carlist";//购物车列表
-    public static final String PRICE="price";//总计价格
-    public static final String TITLE="title";//商户名
-    public static final String RELETLIST="reletlist";//续租列表
-    public static final String EMAIL="email";//email
-    public static final String PASSWORD="password";//password
-    public static final String COUNTRYLIST="countrylist";//存储国家列表
-    public static final String ISCOUNTRY="iscountry";//判断是否存储国家列表
-    public static final String SHOPCARLIST="shopcarlist";//购物车列表
-    public static final String ISSHOPCARLIST="isshopcarlist";//判断购物车列表是否为空
+    public static final String ID = "id";// ID
+    public static final String LONTITUDE = "lontitude";// 经度
+    public static final String LATITUDE = "latitude";// 纬度
+    public static final String USERID = "userid";// 用户ID
+    public static final String PHONE = "phone";//登录手机号
+    public static final String HISTORY = "history";//搜索历史
+    public static final String ORDERNUMBER = "ordernumber";//订单号
+    public static final String LIST = "list";//商品列表
+    public static final String PRICE = "price";//总计价格
+    public static final String TITLE = "title";//商户名
+    public static final String EMAIL = "email";//email
+    public static final String PASSWORD = "password";//password
 
     // 验证手机号码正则表达式
     public static final String CheckMobile = "^((1[358][0-9])|(14[57])|(17[0678]))\\d{8}$";

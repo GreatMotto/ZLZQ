@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:roundimg="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -10,11 +11,12 @@
         android:layout_marginLeft="@dimen/margin"
         android:layout_marginRight="@dimen/margin">
 
-        <ImageView
+        <com.bm.zlzq.view.RoundImageView
+            android:id="@+id/iv_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:src="@mipmap/hm_pic" />
+            roundimg:borderRadius="4dp"
+            roundimg:type="round"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -23,6 +25,7 @@
             android:background="@mipmap/hm_good_bg">
 
             <TextView
+                android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentBottom="true"
@@ -33,6 +36,7 @@
                 android:textSize="@dimen/big_text_size" />
 
             <TextView
+                android:id="@+id/tv_price"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentBottom="true"

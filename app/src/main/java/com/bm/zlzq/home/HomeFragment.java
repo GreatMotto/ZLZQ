@@ -13,20 +13,28 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.bm.zlzq.BaseActivity;
+import com.bm.zlzq.Http.APICallback;
+import com.bm.zlzq.Http.APIResponse;
+import com.bm.zlzq.Http.WebServiceAPI;
 import com.bm.zlzq.R;
+import com.bm.zlzq.bean.HotBean;
+import com.bm.zlzq.bean.ImageBean;
 import com.bm.zlzq.commodity.QuPinActivity;
-import com.bm.zlzq.constant.Constant;
 import com.bm.zlzq.home.city.CitySelectActivity;
 import com.bm.zlzq.home.message.MessageActivity;
 import com.bm.zlzq.home.search.SearchActivity;
 import com.bm.zlzq.home.zxing.activity.CaptureActivity;
+import com.bm.zlzq.my.merchant.MerchantListActivity;
 import com.bm.zlzq.utils.DisplayUtil;
 import com.bm.zlzq.view.AutomaticViewPager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by wangwm on 2015/12/3.
  */
-public class HomeFragment extends Fragment implements View.OnClickListener {
+public class HomeFragment extends Fragment implements View.OnClickListener, APICallback.OnResposeListener {
     private View view, layout_header, view_one, view_two;
     private AutomaticViewPager view_pager;
     private LinearLayout dotLayout, ll_city, ll_scan, ll_msg, ll_search;
@@ -35,6 +43,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private HomeAdapter homeAdapter;
     private RadioGroup radiogroup;
     private RadioButton rb_one, rb_two;
+    private List<ImageBean> bannerlist = new ArrayList<>();
+    private List<HotBean> hotlist = new ArrayList<>();
     private int flag = 0;// 0买  1租
     @Nullable
     @Override
@@ -48,8 +58,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         }
         view = inflater.inflate(R.layout.fg_home, container, false);
         initView();
+        initData();
         radiogroup.check(R.id.rb_one);
         return view;
+    }
+
+    private void initData() {
+        WebServiceAPI.getInstance().bannerList(this, getActivity());
+        WebServiceAPI.getInstance().hotProduct("0", this, getActivity());
     }
 
     private void initView() {
@@ -99,6 +115,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         view_one.setVisibility(View.VISIBLE);
 
+
+        homeAdapter = new HomeAdapter(getActivity(), hotlist);
+        lv_home.setAdapter(homeAdapter);
         radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -107,15 +126,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         view_one.setVisibility(View.VISIBLE);
                         view_two.setVisibility(View.GONE);
                         flag = 0;
-                        homeAdapter = new HomeAdapter(getActivity(), flag);
-                        lv_home.setAdapter(homeAdapter);
+                        WebServiceAPI.getInstance().hotProduct("0", HomeFragment.this, getActivity());
                         break;
                     case R.id.rb_two:
                         view_one.setVisibility(View.GONE);
                         view_two.setVisibility(View.VISIBLE);
                         flag = 1;
-                        homeAdapter = new HomeAdapter(getActivity(), flag);
-                        lv_home.setAdapter(homeAdapter);
+                        WebServiceAPI.getInstance().hotProduct("1", HomeFragment.this, getActivity());
                         break;
                     default:
                         break;
@@ -127,9 +144,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         int width = DisplayUtil.getWidth(getActivity());
         DisplayUtil.setLayoutParams(view_pager, width, (int) (width / 2.2));
         view_pager.setClickFlag("1");
-        view_pager.start(getActivity(), 4000, dotLayout, R.layout.ad_bottom_item, R.id.ad_item_v,
-                R.mipmap.hm_banner_selected, R.mipmap.hm_banner_unselected, ((BaseActivity) getActivity()).
-                        getImageList(Constant.imageUrls, 4), 2.2f);
+//        view_pager.start(getActivity(), 4000, dotLayout, R.layout.ad_bottom_item, R.id.ad_item_v,
+//                R.mipmap.hm_banner_selected, R.mipmap.hm_banner_unselected, ((BaseActivity) getActivity()).
+//                        getImageList(Constant.imageUrls, 4), 2.2f);
     }
 
     @Override
@@ -163,7 +180,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 ((BaseActivity) getActivity()).gotoOtherActivity(QuPinActivity.class);
                 break;
             case R.id.tv_sh:
-//                ((BaseActivity) getActivity()).gotoOtherActivity(QuPinActivity.class);
+                ((BaseActivity) getActivity()).gotoOtherActivity(MerchantListActivity.class);
                 break;
             case R.id.ll_city:
                 ((BaseActivity) getActivity()).gotoOtherActivity(CitySelectActivity.class);
@@ -180,5 +197,38 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             default:
                 break;
         }
+    }
+
+    @Override
+    public void OnFailureData(String error, Integer tag) {
+
+    }
+
+    @Override
+    public void OnSuccessData(APIResponse apiResponse, Integer tag) {
+        if (apiResponse.status.equals("0") && apiResponse.data != null) {
+            switch (tag) {
+                case 0:
+                    bannerlist.clear();
+                    bannerlist.addAll(apiResponse.data.list);
+                    view_pager.start(getActivity(), 4000, dotLayout, R.layout.ad_bottom_item, R.id.ad_item_v,
+                            R.mipmap.hm_banner_selected, R.mipmap.hm_banner_unselected, ((BaseActivity) getActivity()).
+                                    getImageBean(bannerlist, bannerlist.size()), 2.2f);
+                    break;
+                case 1:
+                    hotlist.clear();
+                    hotlist.addAll(apiResponse.data.list);
+                    homeAdapter.setFlag(flag);
+                    homeAdapter.notifyDataSetChanged();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void OnErrorData(String code, Integer tag) {
+
     }
 }

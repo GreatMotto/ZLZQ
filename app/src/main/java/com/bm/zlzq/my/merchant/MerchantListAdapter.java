@@ -7,9 +7,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.bm.zlzq.BaseActivity;
+import com.bm.zlzq.Http.Urls;
 import com.bm.zlzq.R;
-import com.bm.zlzq.bean.MerchantBean;
+import com.bm.zlzq.bean.MerchantListBean;
 import com.bm.zlzq.utils.ViewHolder;
+import com.bm.zlzq.view.RoundImageView;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +24,9 @@ import java.util.List;
 public class MerchantListAdapter extends BaseAdapter{
     private Activity context;
     private LayoutInflater mInflater;
-    private List<MerchantBean> list = new ArrayList<>();
+    private List<MerchantListBean> list = new ArrayList<>();
 
-    public MerchantListAdapter(Activity context, List<MerchantBean> list){
+    public MerchantListAdapter(Activity context, List<MerchantListBean> list){
         this.context = context;
         this.mInflater = LayoutInflater.from(context);
         this.list = list;
@@ -35,12 +39,12 @@ public class MerchantListAdapter extends BaseAdapter{
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return list.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
@@ -48,6 +52,7 @@ public class MerchantListAdapter extends BaseAdapter{
         if (convertView == null){
             convertView = mInflater.inflate(R.layout.item_merchant, null);
         }
+        RoundImageView iv_image = ViewHolder.get(convertView, R.id.iv_image);
         TextView tv_name = ViewHolder.get(convertView, R.id.tv_name);
         TextView tv_have_goods = ViewHolder.get(convertView, R.id.tv_have_goods);
         TextView tv_distance = ViewHolder.get(convertView, R.id.tv_distance);
@@ -57,8 +62,10 @@ public class MerchantListAdapter extends BaseAdapter{
         tv_have_goods.setVisibility(View.GONE);
         tv_phone_number.setVisibility(View.VISIBLE);
 
+        ImageLoader.getInstance().displayImage(Urls.PHOTO + list.get(position).path, iv_image, ((BaseActivity) context).getImageOptions());
+
         tv_name.setText(list.get(position).name);
-        tv_phone_number.setText(list.get(position).phonenumber);
+        tv_phone_number.setText(list.get(position).mobile);
         tv_distance.setText(list.get(position).distance);
         tv_address.setText(list.get(position).address);
 

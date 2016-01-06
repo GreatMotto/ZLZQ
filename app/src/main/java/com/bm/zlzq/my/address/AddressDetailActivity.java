@@ -8,13 +8,17 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bm.zlzq.BaseActivity;
+import com.bm.zlzq.Http.APICallback;
+import com.bm.zlzq.Http.APIResponse;
+import com.bm.zlzq.Http.WebServiceAPI;
 import com.bm.zlzq.R;
 import com.bm.zlzq.bean.AddressBean;
+import com.bm.zlzq.utils.NewToast;
 
 /**
  * Created by wangwm on 2015/12/22.
  */
-public class AddressDetailActivity extends BaseActivity {
+public class AddressDetailActivity extends BaseActivity implements APICallback.OnResposeListener {
     private TextView tv_edit, tv_set_default_address;
     private TextView tv_name, tv_mobile, tv_area, tv_street, tv_detail_address;
     private AddressBean addressBean = new AddressBean();
@@ -80,6 +84,7 @@ public class AddressDetailActivity extends BaseActivity {
                 intent2.putExtra("address", addressBean);
                 intent2.putExtra("isDefault", true);
                 setResult(RESULT_OK, intent2);
+                WebServiceAPI.getInstance().updateaddress(addressBean.id, "", "", "", "", "", "", "", "1", AddressDetailActivity.this, AddressDetailActivity.this);
                 onBackPressed();
                 break;
             default:
@@ -89,7 +94,7 @@ public class AddressDetailActivity extends BaseActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             Intent intent = new Intent();
             intent.putExtra("address", addressBean);
             setResult(RESULT_OK, intent);
@@ -98,10 +103,28 @@ public class AddressDetailActivity extends BaseActivity {
     }
 
     public void refreshUI() {
-        tv_name.setText(addressBean.name);
+        tv_name.setText(addressBean.consignee);
         tv_mobile.setText(addressBean.mobile);
         tv_area.setText(addressBean.area);
         tv_street.setText(addressBean.street);
-        tv_detail_address.setText(addressBean.detailaddress);
+        tv_detail_address.setText(addressBean.address);
+    }
+
+    @Override
+    public void OnFailureData(String error, Integer tag) {
+
+    }
+
+    @Override
+    public void OnSuccessData(APIResponse apiResponse, Integer tag) {
+        if (tag == 2) {
+//            WebServiceAPI.getInstance().updateInfo(tv_nickname.getText().toString().trim(), "", PersonalInfoActivity.this, PersonalInfoActivity.this);
+            NewToast.show(this, "默认地址设置成功!", NewToast.LENGTH_LONG);
+        }
+    }
+
+    @Override
+    public void OnErrorData(String code, Integer tag) {
+
     }
 }

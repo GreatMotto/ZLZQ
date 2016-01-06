@@ -7,9 +7,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import com.bm.zlzq.BaseActivity;
+import com.bm.zlzq.Http.Urls;
 import com.bm.zlzq.R;
 import com.bm.zlzq.bean.ImageBean;
 import com.bm.zlzq.utils.ViewHolder;
+import com.bm.zlzq.view.ViewPagerDialog;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -35,8 +39,7 @@ public class ImageGridAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-//        return list.size();
-        return 3;
+        return list.size();
     }
 
     @Override
@@ -55,40 +58,17 @@ public class ImageGridAdapter extends BaseAdapter {
             convertView = View.inflate(mContext, R.layout.gv_item_image, null);
         }
         ImageView iv_image = ViewHolder.get(convertView, R.id.iv_image);
-//        SimpleDraweeView my_image_view = ViewHolder.get(convertView, R.id.my_image_view);
-//        my_image_view.setAspectRatio(1.0f);
-//        my_image_view.setImageURI(Uri.parse(Urls.PHOTO + list.get(position).path));
-//        if ("***".equals(list.get(position).path)) {
-//            iv_image.setBackgroundResource(R.color.transparent);
-//            iv_image.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent intent = new Intent();
-//                    intent.setClass(mContext, DynamicDetailActivity.class);
-//                    intent.putExtra(Constant.ID, list.get(position).id);
-////                ActivityTransitionLauncher.with((Activity) mContext)
-////                        .from(v).launch(intent);
-//                    mContext.startActivity(intent);
-//                }
-//            });
-//            return convertView;
-//        }
 
-//        DisplayImageOptions options = new DisplayImageOptions.Builder()
-//                .cacheInMemory(true)
-//                .cacheOnDisk(true)
-//                .bitmapConfig(Bitmap.Config.RGB_565)
-//                .build();
-//        ImageLoader.getInstance().displayImage(Urls.PHOTO + list.get(position).path, iv_image, options);
+        ImageLoader.getInstance().displayImage(Urls.PHOTO + list.get(position).path, iv_image, ((BaseActivity) mContext).getImageOptions());
 
-          //图片的点击事件
-//        iv_image.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                ViewPagerDialog dlg = new ViewPagerDialog(mContext, list, position);
-//                dlg.showViewPagerDialog();
-//            }
-//        });
+        // 图片的点击事件
+        iv_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewPagerDialog dlg = new ViewPagerDialog(mContext, list, position);
+                dlg.showViewPagerDialog();
+            }
+        });
         return convertView;
     }
 }

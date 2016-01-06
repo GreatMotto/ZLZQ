@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.bm.zlzq.R;
-import com.bm.zlzq.bean.MerchantBean;
+import com.bm.zlzq.bean.MerchantListBean;
 import com.bm.zlzq.utils.ViewHolder;
 
 import java.util.ArrayList;
@@ -19,10 +19,10 @@ import java.util.List;
  */
 public class MerchantChooseAdapter extends BaseAdapter{
     private Activity context;
-    private List<MerchantBean> list = new ArrayList<>();
+    private List<MerchantListBean> list = new ArrayList<>();
     AdapterClickInterface clickInterface;
 
-    public MerchantChooseAdapter(Activity context, List<MerchantBean> list, AdapterClickInterface clickInterface){
+    public MerchantChooseAdapter(Activity context, List<MerchantListBean> list, AdapterClickInterface clickInterface){
         this.context = context;
         this.list = list;
         this.clickInterface = clickInterface;

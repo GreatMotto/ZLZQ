@@ -10,7 +10,9 @@ public class MerchantBean implements Serializable{
 
     public String id;
     public String name;
-    public String distance;
-    public String phonenumber;
+    public String description;
+    public String mobile;
     public String address;
+    public String path;
+
 }

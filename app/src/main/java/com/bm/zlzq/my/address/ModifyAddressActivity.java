@@ -9,20 +9,25 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bm.zlzq.BaseActivity;
+import com.bm.zlzq.Http.APICallback;
+import com.bm.zlzq.Http.APIResponse;
+import com.bm.zlzq.Http.WebServiceAPI;
 import com.bm.zlzq.R;
 import com.bm.zlzq.bean.AddressBean;
 import com.bm.zlzq.constant.Constant;
 import com.bm.zlzq.utils.NewToast;
+import com.bm.zlzq.utils.ProgressUtils;
 import com.bm.zlzq.view.WheelDialog;
 
 /**
  * Created by wangwm on 2015/12/22.
  */
-public class ModifyAddressActivity extends BaseActivity{
+public class ModifyAddressActivity extends BaseActivity implements APICallback.OnResposeListener {
     private TextView tv_edit, tv_area;
     private RelativeLayout rl_area;
-    private EditText et_name,et_mobile,et_street,et_detail_address;
+    private EditText et_name, et_mobile, et_street, et_detail_address;
     private AddressBean addressBean = new AddressBean();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,11 +47,11 @@ public class ModifyAddressActivity extends BaseActivity{
         tv_edit = (TextView) findViewById(R.id.tv_edit);
         tv_edit.setText("保存");
         tv_edit.setVisibility(View.VISIBLE);
-        et_name.setText(addressBean.name);
+        et_name.setText(addressBean.consignee);
         et_mobile.setText(addressBean.mobile);
         tv_area.setText(addressBean.area);
         et_street.setText(addressBean.street);
-        et_detail_address.setText(addressBean.detailaddress);
+        et_detail_address.setText(addressBean.address);
         tv_edit.setOnClickListener(this);
         rl_area.setOnClickListener(this);
     }
@@ -82,20 +87,22 @@ public class ModifyAddressActivity extends BaseActivity{
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()){
+        switch (v.getId()) {
+            //保存按钮
             case R.id.tv_edit:
                 if (canSave()) {
                     AddressBean db = new AddressBean();
-                    db.name = et_name.getText().toString().trim();
+                    db.consignee = et_name.getText().toString().trim();
                     db.mobile = et_mobile.getText().toString().trim();
                     db.area = tv_area.getText().toString().trim();
                     db.street = et_street.getText().toString().trim();
-                    db.detailaddress = et_detail_address.getText().toString().trim();
-                    db.isDefault = "0";
+                    db.address = et_detail_address.getText().toString().trim();
+                    db.status = "0";
                     Intent intent = new Intent();
                     intent.putExtra("address", db);
                     setResult(RESULT_OK, intent);
                     onBackPressed();
+                    WebServiceAPI.getInstance().updateaddress(addressBean.id, et_name.getText().toString().trim(), et_mobile.getText().toString().trim(), "", "", "", et_street.getText().toString().trim(), et_detail_address.getText().toString().trim(), "0", ModifyAddressActivity.this, ModifyAddressActivity.this);
                 }
                 break;
             case R.id.rl_area:
@@ -109,5 +116,28 @@ public class ModifyAddressActivity extends BaseActivity{
             default:
                 break;
         }
+    }
+
+    @Override
+    public void OnFailureData(String error, Integer tag) {
+
+    }
+
+    @Override
+    public void OnSuccessData(APIResponse apiResponse, Integer tag) {
+        if (apiResponse.status.equals("0") && apiResponse.data != null) {
+            switch (tag) {
+                case 2:
+                    NewToast.show(this, "地址修改成功!", NewToast.LENGTH_LONG);
+                default:
+                    break;
+            }
+        }
+
+    }
+
+    @Override
+    public void OnErrorData(String code, Integer tag) {
+
     }
 }

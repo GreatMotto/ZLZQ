@@ -59,7 +59,7 @@
                 android:singleLine="true"
                 android:textCursorDrawable="@null"
                 android:hint="水果"
-                android:textColorHint="@color/dl_text_hint_color"
+                android:textColorHint="@color/hm_bottom_text"
                 android:textSize="@dimen/normal_text_size" />
 
             <LinearLayout

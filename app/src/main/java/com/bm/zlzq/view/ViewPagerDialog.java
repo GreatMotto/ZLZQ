@@ -2,7 +2,6 @@ package com.bm.zlzq.view;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -13,11 +12,11 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 
+import com.bm.zlzq.BaseActivity;
+import com.bm.zlzq.Http.Urls;
 import com.bm.zlzq.R;
 import com.bm.zlzq.bean.ImageBean;
-import com.bm.zlzq.constant.Urls;
 import com.bm.zlzq.utils.ViewHolder;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.polites.android.GestureImageView;
 
@@ -92,23 +91,18 @@ public class ViewPagerDialog implements OnTouchListener {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             View convertView = LayoutInflater.from(context).inflate(R.layout.list_item, null);
-//            SimpleDraweeView sdv = ViewHolder.get(convertView, R.id.my_image_view);
-//            sdv.setAspectRatio(1.0f);
-//            sdv.setImageURI(Uri.parse(Urls.PHOTO + list.get(position).path));
+
             GestureImageView iv_image = ViewHolder.get(convertView, R.id.iv_image);
-            DisplayImageOptions options = new DisplayImageOptions.Builder()
-                    .cacheInMemory(true)
-                    .bitmapConfig(Bitmap.Config.RGB_565)
-                    .build();
+
             if(list.get(position).path!=null&&list.get(position).path.contains(Urls.PHOTO)){
-                ImageLoader.getInstance().displayImage(list.get(position).path, iv_image, options);
+                ImageLoader.getInstance().displayImage(list.get(position).path, iv_image, ((BaseActivity) context).getImageOptions());
             }
             else if (list.get(position).path!=null&&(list.get(position).path.contains("file://")||list.get(position).path.contains("http")))
             {
-                ImageLoader.getInstance().displayImage( list.get(position).path, iv_image, options);
+                ImageLoader.getInstance().displayImage( list.get(position).path, iv_image, ((BaseActivity) context).getImageOptions());
             }
             else {
-                ImageLoader.getInstance().displayImage(Urls.PHOTO + list.get(position).path, iv_image, options);
+                ImageLoader.getInstance().displayImage(Urls.PHOTO + list.get(position).path, iv_image, ((BaseActivity) context).getImageOptions());
             }
 
             container.addView(convertView);

@@ -7,4 +7,278 @@
 
     <include layout="@layout/titlebar" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/six_margin">
+
+        <RadioGroup
+            android:id="@+id/radiogroup_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_1"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/six_margin"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="false"
+                android:gravity="center"
+                android:text="租赁订单"
+                android:textColor="@drawable/hm_listbar_color"
+                android:textSize="@dimen/normal_text_size" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/double_margin"
+                android:layout_marginTop="@dimen/double_margin"
+                android:background="@color/hm_line_gray" />
+
+            <RadioButton
+                android:id="@+id/rb_2"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/six_margin"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:text="待发货"
+                android:textColor="@drawable/hm_listbar_color"
+                android:textSize="@dimen/normal_text_size" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/double_margin"
+                android:layout_marginTop="@dimen/double_margin"
+                android:background="@color/hm_line_gray" />
+
+            <RadioButton
+                android:id="@+id/rb_3"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/six_margin"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:text="待确认"
+                android:textColor="@drawable/hm_listbar_color"
+                android:textSize="@dimen/normal_text_size" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/double_margin"
+                android:layout_marginTop="@dimen/double_margin"
+                android:background="@color/hm_line_gray" />
+
+            <RadioButton
+                android:id="@+id/rb_4"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/six_margin"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:text="已退租"
+                android:textColor="@drawable/hm_listbar_color"
+                android:textSize="@dimen/normal_text_size" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/double_margin"
+                android:layout_marginTop="@dimen/double_margin"
+                android:background="@color/hm_line_gray" />
+
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="0.5dp"
+                android:layout_weight="1">
+
+                <View
+                    android:id="@+id/v_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/margin"
+                    android:layout_marginRight="@dimen/margin"
+                    android:background="@mipmap/hm_rb_line" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="0.5dp"
+                android:layout_weight="1">
+
+                <View
+                    android:id="@+id/v_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/margin"
+                    android:layout_marginRight="@dimen/margin"
+                    android:background="@mipmap/hm_rb_line"
+                    android:visibility="gone" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="0.5dp"
+                android:layout_weight="1">
+
+                <View
+                    android:id="@+id/v_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/margin"
+                    android:layout_marginRight="@dimen/margin"
+                    android:background="@mipmap/hm_rb_line"
+                    android:visibility="gone" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="0.5dp"
+                android:layout_weight="1">
+
+                <View
+                    android:id="@+id/v_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/margin"
+                    android:layout_marginRight="@dimen/margin"
+                    android:background="@mipmap/hm_rb_line"
+                    android:visibility="gone" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@mipmap/hm_line" />
+
+    <ListView
+        android:id="@+id/lv_quit_tz_1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:cacheColorHint="#00000000"
+        android:divider="@null"
+        android:fadingEdge="none"
+        android:listSelector="@color/alpha_00"
+        android:scrollbars="none" />
+
+    <RelativeLayout
+        android:id="@+id/rl_quit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/six_margin"
+        android:background="@color/white"
+        android:gravity="center_vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_quit_check_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin">
+
+
+            <RelativeLayout
+                android:id="@+id/rl_quit_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_quit_check_all_n"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/margin"
+                    android:src="@mipmap/gwc_wxz" />
+
+                <ImageView
+                    android:id="@+id/iv_quit_check_all_y"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/margin"
+                    android:src="@mipmap/gwc_xz"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/rl_quit_check"
+                android:text="全选"
+                android:textColor="@color/app_black"
+                android:textSize="@dimen/big_text_size" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_quit_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/half_margin"
+            android:layout_toLeftOf="@+id/tv_quit_price"
+            android:text="总计:"
+            android:textColor="@color/app_black"
+            android:textSize="@dimen/big_text_size" />
+
+        <TextView
+            android:id="@+id/tv_quit_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/double_margin"
+            android:layout_toLeftOf="@+id/tv_quit_buy"
+            android:text="¥0.00"
+            android:textColor="@color/app_theme"
+            android:textSize="@dimen/big_text_size" />
+
+        <TextView
+            android:id="@+id/tv_quit_buy"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/gwc_js_bg"
+            android:gravity="center"
+            android:text="退租"
+            android:textColor="@color/white"
+            android:textSize="@dimen/big_text_size" />
+    </RelativeLayout>
 </LinearLayout>

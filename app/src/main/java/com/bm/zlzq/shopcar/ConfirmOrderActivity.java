@@ -1,7 +1,10 @@
 package com.bm.zlzq.shopcar;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,13 +14,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bm.zlzq.BaseActivity;
+import com.bm.zlzq.Http.Urls;
 import com.bm.zlzq.R;
+import com.bm.zlzq.bean.AddressBean;
 import com.bm.zlzq.bean.ShopCarBean;
 import com.bm.zlzq.constant.Constant;
+import com.bm.zlzq.my.address.MyAddressActivity;
 import com.bm.zlzq.utils.DialogUtil;
 import com.bm.zlzq.utils.NewToast;
 import com.bm.zlzq.utils.ViewHolder;
 import com.bm.zlzq.view.NoScrollListView;
+import com.bm.zlzq.view.RoundImageView;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -30,26 +38,30 @@ import java.util.List;
 public class ConfirmOrderActivity extends BaseActivity {
     private ImageView iv_chongzhika, iv_alipay, iv_yinlian;
     private RelativeLayout rl_chongzhika, rl_alipay, rl_yinlian, rl_send_way, rl_coupon;
-    private LinearLayout ll_send_way, ll_merchant;
-    private TextView tv_heji_price, tv_zongji_price, tv_total_num, tv_sure, tv_chongzhika, tv_alipay, tv_yinlian, tv_send_way;
+    private LinearLayout ll_send_way, ll_merchant, ll_address;
+    private TextView tv_heji_price, tv_zongji_price, tv_total_num, tv_sure,
+            tv_chongzhika, tv_alipay, tv_yinlian, tv_send_way,
+            tv_name, tv_mobile, tv_address;
     private NoScrollListView listView;
+    private AddressBean addressBean = new AddressBean();
     private float zongjiPrice = 0;
     private List<ShopCarBean> list = new ArrayList<>();
     private int isfirst = 0;
     private boolean havepay;
-    private int flag = 0;// 0-购物车  1-续租
+    private static final int RESULT_CONFIRM = 3;
+    private int flag = 0;// 0-购物车  1-续租  2-付款
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ac_confirm_order);
         flag = getIntent().getIntExtra(Constant.FLAG, 0);
-        list = (List<ShopCarBean>) getIntent().getSerializableExtra(Constant.CARLIST);
+        list = (List<ShopCarBean>) getIntent().getSerializableExtra(Constant.LIST);
         initView();
-        if (flag == 0) {
-            initTitle("确认订单");
-        } else {
+        if (flag == 1) {
             initTitle("确认续租");
+        } else {
+            initTitle("确认订单");
         }
     }
 
@@ -62,6 +74,11 @@ public class ConfirmOrderActivity extends BaseActivity {
     }
 
     private void initView() {
+        ll_address = (LinearLayout) findViewById(R.id.ll_address);
+        tv_name = (TextView) findViewById(R.id.tv_name);
+        tv_mobile = (TextView) findViewById(R.id.tv_mobile);
+        tv_address = (TextView) findViewById(R.id.tv_address);
+
         listView = (NoScrollListView) findViewById(R.id.nslv_goods);
         tv_heji_price = (TextView) findViewById(R.id.tv_heji_price);
         tv_zongji_price = (TextView) findViewById(R.id.tv_zongji_price);
@@ -88,6 +105,7 @@ public class ConfirmOrderActivity extends BaseActivity {
         rl_send_way.setOnClickListener(this);
         rl_coupon.setOnClickListener(this);
         tv_sure.setOnClickListener(this);
+        ll_address.setOnClickListener(this);
 
         if (flag == 1) {
             ll_merchant.setVisibility(View.VISIBLE);
@@ -99,7 +117,7 @@ public class ConfirmOrderActivity extends BaseActivity {
         float totalPrice = 0;
         for (int i = 0; i < list.size(); i++) {
             int count = Integer.parseInt(list.get(i).count);
-            float price = Float.parseFloat(list.get(i).price);
+            float price = Float.parseFloat(list.get(i).priceTwo);
             totalNum += count;
             totalPrice += count * price;
         }
@@ -124,9 +142,31 @@ public class ConfirmOrderActivity extends BaseActivity {
     };
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case RESULT_CONFIRM:
+                    addressBean = (AddressBean) data.getSerializableExtra("address");
+                    tv_name.setText("取货人姓名：" + addressBean.consignee);
+                    tv_mobile.setText(addressBean.mobile);
+                    tv_address.setText("收货地址：" + addressBean.area + addressBean.street + addressBean.address);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    @Override
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
+            case R.id.ll_address:
+                Intent intent = new Intent(this, MyAddressActivity.class);
+                intent.putExtra(Constant.FLAG, 1);
+                startActivityForResult(intent, RESULT_CONFIRM);
+                break;
             case R.id.rl_chongzhika:
                 iv_chongzhika.setImageResource(R.mipmap.gwc_xz);
                 iv_alipay.setImageResource(R.mipmap.gwc_wxz);
@@ -161,9 +201,9 @@ public class ConfirmOrderActivity extends BaseActivity {
                 gotoOtherActivity(OrderCouponActivity.class);
                 break;
             case R.id.tv_sure:
-                if (havepay){
+                if (havepay) {
                     gotoOtherActivity(FinishOrderActivity.class);
-                }else {
+                } else {
                     NewToast.show(this, "请选择支付方式", NewToast.LENGTH_LONG);
                 }
                 break;
@@ -205,19 +245,19 @@ public class ConfirmOrderActivity extends BaseActivity {
             TextView tv_num = ViewHolder.get(convertView, R.id.tv_num);
             TextView tv_price = ViewHolder.get(convertView, R.id.tv_price);
             ImageView iv_check = ViewHolder.get(convertView, R.id.iv_check);
-            ImageView iv_pic = ViewHolder.get(convertView, R.id.iv_pic);
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(iv_pic.getLayoutParams());
+            RoundImageView iv_image = ViewHolder.get(convertView, R.id.iv_image);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(iv_image.getLayoutParams());
             params.setMargins(16, 0, 0, 0);
-            iv_pic.setLayoutParams(params);
+            iv_image.setLayoutParams(params);
 
             iv_check.setVisibility(View.GONE);
-            if (list.get(position).equals("")) {
-                tv_price.setText("¥" + list.get(position).price + "0.00");
-            } else if (list.get(position).price.contains(".")) {
-                tv_price.setText("¥" + list.get(position).price);
+            if (TextUtils.isEmpty(list.get(position).priceTwo)) {
+                tv_price.setText("¥0.00");
             } else {
-                tv_price.setText("¥" + list.get(position).price + ".00");
+                tv_price.setText("¥" + list.get(position).priceTwo);
             }
+
+            ImageLoader.getInstance().displayImage(Urls.PHOTO + list.get(position).path, iv_image, ((BaseActivity) context).getImageOptions());
             tv_name.setText(list.get(position).name);
             tv_num.setText("x" + list.get(position).count);
             return convertView;

@@ -51,7 +51,7 @@ public class MyGoodsAdapter extends BaseAdapter{
         TextView tv_num = ViewHolder.get(convertView, R.id.tv_num);
 
         tv_name.setText(list.get(position).name);
-        tv_price.setText("￥" + list.get(position).price);
+        tv_price.setText("￥" + list.get(position).priceTwo);
         tv_num.setText("x" + list.get(position).count);
 
         return convertView;

@@ -14,7 +14,7 @@
         <com.bm.zlzq.view.YsnowScrollViewPageOne
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="vertical">
+            android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -24,8 +24,8 @@
                 <com.bm.zlzq.view.AutomaticViewPager
                     android:id="@+id/view_pager"
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:background="@mipmap/qp_detail_banner" />
+                    android:layout_height="160dp"
+                    android:background="@mipmap/ic_launcher"/>
 
                 <LinearLayout
                     android:id="@+id/dot_ll"
@@ -51,11 +51,11 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/tv_product_name"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="@dimen/double_margin"
                             android:layout_weight="1"
-                            android:text="南非新鲜脆甜水果桃子紫溪山冬桃水蜜桃"
                             android:textColor="@color/app_black"
                             android:textSize="@dimen/big_text_size" />
 
@@ -80,7 +80,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="@dimen/half_margin"
-                                    android:src="@mipmap/qp_sc_no" />
+                                    android:src="@mipmap/sc_no" />
 
                                 <ImageView
                                     android:id="@+id/iv_collect"
@@ -110,7 +110,6 @@
                             android:id="@+id/tv_detail_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="租赁单价:138/月"
                             android:textColor="@color/app_theme"
                             android:textSize="@dimen/big_text_size" />
 
@@ -119,7 +118,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:text="押金:7000元"
                             android:textColor="@color/app_theme"
                             android:textSize="@dimen/big_text_size" />
                     </RelativeLayout>
@@ -140,8 +138,7 @@
                             android:id="@+id/tv_detail_price_old"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin"
-                            android:text="150.00-300.00" />
+                            android:layout_marginTop="@dimen/margin" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -180,7 +177,6 @@
                             android:layout_alignParentRight="true"
                             android:drawablePadding="@dimen/margin"
                             android:drawableRight="@mipmap/qp_jt"
-                            android:text="1个月"
                             android:textColor="@color/qp_item_num"
                             android:textSize="@dimen/big_text_size" />
                     </RelativeLayout>
@@ -211,12 +207,13 @@
                             android:textSize="@dimen/big_text_size" />
 
                         <TextView
+                            android:id="@+id/tv_guige"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:drawablePadding="@dimen/margin"
                             android:drawableRight="@mipmap/qp_jt"
-                            android:textColor="@color/app_black"
+                            android:textColor="@color/qp_item_num"
                             android:textSize="@dimen/big_text_size" />
                     </RelativeLayout>
 
@@ -250,7 +247,6 @@
                             android:layout_alignParentRight="true"
                             android:drawablePadding="@dimen/margin"
                             android:drawableRight="@mipmap/qp_jt"
-                            android:text="15"
                             android:textColor="@color/qp_item_num"
                             android:textSize="@dimen/big_text_size" />
                     </RelativeLayout>
@@ -299,26 +295,35 @@
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/tv_no_shaidan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin"
+                    android:text="此商品暂无晒单"
+                    android:textColor="@color/qp_item_num"
+                    android:textSize="@dimen/normal_text_size"/>
+
                 <LinearLayout
+                    android:id="@+id/ll_shaidan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:orientation="vertical"
-                    android:padding="@dimen/margin">
+                    android:padding="@dimen/margin"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tv_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Queenie"
                         android:textColor="@color/app_black"
                         android:textSize="@dimen/normal_text_size" />
 
                     <TextView
-                        android:id="@+id/tv_content"
+                        android:id="@+id/tv_content_shaidan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="东西还可以，快递速度很快，现在在使用中，很方便，不用特地买，健康又环保"
                         android:textColor="@color/app_black"
                         android:textSize="@dimen/small_text_size" />
 
@@ -481,7 +486,7 @@
             android:id="@+id/ysnowswebview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="vertical">
+            android:scrollbars="none">
 
         </com.bm.zlzq.view.YsnowWebView>
 
